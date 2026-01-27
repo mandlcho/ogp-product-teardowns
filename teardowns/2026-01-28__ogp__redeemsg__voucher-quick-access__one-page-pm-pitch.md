@@ -10,6 +10,7 @@ Users repeatedly lose the voucher entry point because it arrives via SMS and ope
 - Voucher link is delivered via **SMS** (transient). After the first open, users often need to **hunt the SMS again**.
 - Re-opening the voucher requires **Singpass re-login** to retrieve the voucher link again.
 - This is extra painful because it happens on *repeat visits*, when users expect it to be fast.
+- Accessibility angle: some users (especially older users) may **forget**, be **less confident navigating SMS/browser tabs**, or **need a caregiver/family member to help**. A persistent shortcut reduces reliance on “finding the right message” and lowers the support burden.
 
 ### Most common jobs-to-be-done
 1) **Use voucher for purchase** (need quick access at point-of-sale)
@@ -84,7 +85,8 @@ Option B (still simple, more polished): **Create a stable “voucher hub” entr
 ---
 
 ## 7) Why this is a Pair-style win
-- Focused on a high-frequency workflow
-- Low-risk, incremental change
+- Focused on a high-frequency workflow (purchase + balance check)
+- Low-risk, incremental change (text/banner + OS guidance), minimal backend impact
 - Clear success metrics
 - Improves experience without requiring a full redesign
+- Inclusive: reduces “digital navigation tax” for older users and people needing assistance
