@@ -16,22 +16,31 @@ Definition: **ALL** OGP products and sub-products.
 
 ### Pair suite (sub-products)
 - Pair Chat — DRAFTED
-- Pair Search — TODO
+- Pair Search — DRAFTED
 - Pair Noms — TODO
 - Pair Intern — TODO
 
-### Product list (from OGP Report Cards)
+### Current products on OGP Report Cards
+(As seen on https://reports.open.gov.sg/products)
 - ActiveSG — TODO
 - Armoury — TODO
+- Care360 — TODO
+- Data.gov.sg — TODO
+- Maps — TODO
+- Pair (core) — TODO
+- RedeemSG — TODO
+- ScamShield — TODO
+- Scribe — TODO
+
+### Other / legacy OGP products to cover
+(Not currently shown on Report Cards, but still in our coverage definition.)
 - AskGov — TODO
 - AttendPA — TODO
 - BRIGHT — TODO
 - CalSG — TODO
-- Care360 — TODO
 - CareerSG — TODO
 - CheckFirst — TODO
 - Checkpoint — TODO
-- Data.gov.sg — TODO
 - DistributeSG — TODO
 - EnterpriseSG — TODO
 - ERPX — TODO
@@ -47,22 +56,17 @@ Definition: **ALL** OGP products and sub-products.
 - Kampung Spirit — TODO
 - LetterSG — TODO
 - Lola — TODO
-- Maps — TODO
 - MyClub — TODO
-- Pair (core) — TODO
 - ParkingSG — TODO
 - PaySG — TODO
 - Plumber — TODO
 - Postman — TODO
 - ProcureIT — TODO
-- RedeemSG — TODO
 - Refer — TODO
 - RoadBuster — TODO
 - Rooster — TODO
 - Roster Monster — TODO
 - SBS — TODO
-- ScamShield — TODO
-- Scribe — TODO
 - sgID — TODO
 - Signify — TODO
 - Social360 — TODO
