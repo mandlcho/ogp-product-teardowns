@@ -2,7 +2,7 @@
 
 Private working repo for full teardowns of **all OGP products**, written from a Product Manager perspective.
 
-## Why private
+## Why private?
 Drafts can be raw. We’ll promote selected pieces to public repos (e.g. SpendWhat site) when they’re clean and ready.
 
 ## Output format (per teardown)
