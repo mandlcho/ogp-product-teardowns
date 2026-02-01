@@ -207,6 +207,59 @@
             color: var(--ink);
         }
 
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1.1fr 1.1fr 0.8fr 0.8fr 1.2fr 1.2fr;
+            gap: 0.75rem;
+            padding: 1.5rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(13, 27, 30, 0.1);
+            box-shadow: var(--shadow-tight);
+        }
+
+        .table-cell {
+            font-size: 0.95rem;
+            color: var(--ink-soft);
+            line-height: 1.5;
+        }
+
+        .table-header {
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.7rem;
+            color: var(--ink-muted);
+        }
+
+        .table-row {
+            padding-top: 0.6rem;
+            border-top: 1px solid rgba(13, 27, 30, 0.08);
+        }
+
+        .metric-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .metric-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(13, 27, 30, 0.08);
+            box-shadow: var(--shadow-tight);
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--accent-indigo);
+        }
+
         .data-tag {
             font-family: var(--font-mono);
             font-size: 0.85rem;
@@ -249,6 +302,10 @@
 
             .hero-card {
                 padding: 2rem;
+            }
+
+            .comparison-table {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
@@ -334,6 +391,120 @@
                 <p><strong>Strength:</strong> UX leadership</p>
                 <p><strong>Challenge:</strong> Political fragmentation</p>
             </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Comparison Matrix</div>
+        <h2 class="reveal">Side-by-side view of the five agencies</h2>
+        <p class="reveal">Key fields that matter for fast comparison: size, rank, standout strength, and the constraint each agency is fighting.</p>
+        <div class="comparison-table reveal">
+            <div class="table-cell table-header">Country</div>
+            <div class="table-cell table-header">Agency</div>
+            <div class="table-cell table-header">Size</div>
+            <div class="table-cell table-header">UN Rank</div>
+            <div class="table-cell table-header">Strength</div>
+            <div class="table-cell table-header">Challenge</div>
+
+            <div class="table-cell table-row"><strong>Denmark</strong></div>
+            <div class="table-cell table-row">DIGST</div>
+            <div class="table-cell table-row">400+</div>
+            <div class="table-cell table-row">Top 5</div>
+            <div class="table-cell table-row">Mandatory digital adoption</div>
+            <div class="table-cell table-row">Inclusion gaps</div>
+
+            <div class="table-cell table-row"><strong>Estonia</strong></div>
+            <div class="table-cell table-row">RIA + e-Gov Foundation</div>
+            <div class="table-cell table-row">~300</div>
+            <div class="table-cell table-row">#1</div>
+            <div class="table-cell table-row">X-Road interoperability</div>
+            <div class="table-cell table-row">Security complexity</div>
+
+            <div class="table-cell table-row"><strong>Australia</strong></div>
+            <div class="table-cell table-row">DTA</div>
+            <div class="table-cell table-row">200-300</div>
+            <div class="table-cell table-row">Top 10</div>
+            <div class="table-cell table-row">Digital sourcing marketplace</div>
+            <div class="table-cell table-row">Federal fragmentation</div>
+
+            <div class="table-cell table-row"><strong>South Korea</strong></div>
+            <div class="table-cell table-row">NIA + MOIS</div>
+            <div class="table-cell table-row">300-400</div>
+            <div class="table-cell table-row">Top 3</div>
+            <div class="table-cell table-row">AI integration at scale</div>
+            <div class="table-cell table-row">Digital literacy gaps</div>
+
+            <div class="table-cell table-row"><strong>United Kingdom</strong></div>
+            <div class="table-cell table-row">GDS</div>
+            <div class="table-cell table-row">150-200</div>
+            <div class="table-cell table-row">Top 15</div>
+            <div class="table-cell table-row">UX and transparency leadership</div>
+            <div class="table-cell table-row">Political fragmentation</div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Signal Metrics</div>
+        <h2 class="reveal">Where the strongest signals show up</h2>
+        <p class="reveal">Use these data points to anchor credibility and show what each agency optimized for.</p>
+        <div class="metric-list">
+            <div class="metric-item reveal">
+                <div>
+                    <h3>Denmark: Mandatory adoption</h3>
+                    <p>Digital Mailbox adoption reached 94 percent through legislation.</p>
+                </div>
+                <div class="metric-value">94%</div>
+            </div>
+            <div class="metric-item reveal">
+                <div>
+                    <h3>Estonia: Services online</h3>
+                    <p>Public services delivered online via X-Road infrastructure.</p>
+                </div>
+                <div class="metric-value">99%</div>
+            </div>
+            <div class="metric-item reveal">
+                <div>
+                    <h3>South Korea: AI adoption goal</h3>
+                    <p>Public sector AI adoption target under the national master plan.</p>
+                </div>
+                <div class="metric-value">95%</div>
+            </div>
+            <div class="metric-item reveal">
+                <div>
+                    <h3>UK: Algorithmic transparency</h3>
+                    <p>Published algorithmic records to increase trust in automated decisions.</p>
+                </div>
+                <div class="metric-value">70+</div>
+            </div>
+            <div class="metric-item reveal">
+                <div>
+                    <h3>Australia: Digital procurement</h3>
+                    <p>BuyICT.gov.au reduces sourcing friction across agencies.</p>
+                </div>
+                <div class="metric-value">Active</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">OGP vs Peers</div>
+        <h2 class="reveal">Portfolio scale changes the playbook</h2>
+        <div class="grid cols-2">
+            <div class="card reveal">
+                <h3>OGP structure</h3>
+                <p><strong>Products:</strong> 40+ services</p>
+                <p><strong>Operating mode:</strong> Continuous iteration across multiple products</p>
+                <p><strong>Learning loop:</strong> Cross-product insights compound quickly</p>
+            </div>
+            <div class="card reveal">
+                <h3>Peer structures</h3>
+                <p><strong>Model:</strong> Centralized agencies with multi-year strategy cycles</p>
+                <p><strong>Operating mode:</strong> Policy-first, slower feedback loops</p>
+                <p><strong>Risk:</strong> Single-agency focus limits experimentation</p>
+            </div>
+        </div>
+        <div class="hero-card reveal">
+            <p class="quote">OGP can borrow governance guardrails without sacrificing the product portfolio advantage.</p>
         </div>
     </section>
 
