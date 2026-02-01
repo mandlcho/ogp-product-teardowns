@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GovTech Equivalents: Comparative Landscape</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+    <style>
+        :root {
+            --paper: #f3efe6;
+            --paper-deep: #e8e1d2;
+            --ink: #0d1b1e;
+            --ink-soft: #25323a;
+            --ink-muted: #54606a;
+            --accent-teal: #0e7c7b;
+            --accent-amber: #f6a01a;
+            --accent-rose: #d94f4f;
+            --accent-moss: #4d7c59;
+            --accent-indigo: #2f4f6f;
+            --font-display: "Fraunces", serif;
+            --font-body: "Manrope", sans-serif;
+            --font-mono: "Space Mono", monospace;
+            --shadow-soft: 0 25px 60px rgba(13, 27, 30, 0.12);
+            --shadow-tight: 0 12px 24px rgba(13, 27, 30, 0.12);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--ink);
+            background: radial-gradient(circle at top left, #ffffff 0%, var(--paper) 45%, var(--paper-deep) 100%);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::before {
+            background:
+                radial-gradient(circle at 12% 8%, rgba(14, 124, 123, 0.15), transparent 55%),
+                radial-gradient(circle at 88% 20%, rgba(246, 160, 26, 0.14), transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(77, 124, 89, 0.12), transparent 55%);
+        }
+
+        body::after {
+            background-image: linear-gradient(120deg, rgba(13, 27, 30, 0.02) 0%, rgba(13, 27, 30, 0.02) 100%);
+            mix-blend-mode: multiply;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-teal), var(--accent-amber));
+            width: 0%;
+            z-index: 20;
+            transition: width 0.2s ease;
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            z-index: 15;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--ink-muted);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s var(--ease-out);
+        }
+
+        .nav-dot.active {
+            background: var(--accent-teal);
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 6px rgba(14, 124, 123, 0.18);
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: clamp(2.5rem, 6vw, 5rem);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(2.6rem, 6vw, 4.2rem);
+            line-height: 1.05;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+        }
+
+        p {
+            font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+            line-height: 1.7;
+            color: var(--ink-soft);
+        }
+
+        .kicker {
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+        }
+
+        .hero {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .hero-card {
+            background: rgba(255, 255, 255, 0.65);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(13, 27, 30, 0.08);
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .pill {
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            background: rgba(14, 124, 123, 0.12);
+            color: var(--accent-teal);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid.cols-2 {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .grid.cols-3 {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .grid.cols-5 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(13, 27, 30, 0.08);
+            box-shadow: var(--shadow-tight);
+        }
+
+        .card strong {
+            color: var(--ink);
+        }
+
+        .data-tag {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent-indigo);
+        }
+
+        .accent-line {
+            height: 6px;
+            width: 60px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent-teal), var(--accent-amber));
+        }
+
+        .quote {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .note {
+            font-size: 0.95rem;
+            color: var(--ink-muted);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s var(--ease-out);
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .nav-dots {
+                display: none;
+            }
+
+            .hero-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar"></div>
+    <div class="nav-dots" aria-hidden="true"></div>
+
+    <section class="slide">
+        <div class="hero">
+            <div class="kicker reveal">Comparative GovTech Study</div>
+            <h1 class="reveal">GovTech Equivalents: Comparative Landscape</h1>
+            <p class="reveal">A structured look at five tier-1 digital government agencies and the strategic lessons for OGP's product portfolio.</p>
+            <div class="pill-row reveal">
+                <span class="pill">Denmark DIGST</span>
+                <span class="pill">Estonia RIA</span>
+                <span class="pill">Australia DTA</span>
+                <span class="pill">South Korea NIA</span>
+                <span class="pill">UK GDS</span>
+            </div>
+            <div class="hero-card reveal">
+                <div class="accent-line"></div>
+                <p class="quote">Key finding: no country has a perfect model. Each excels in a different dimension, and each carries a visible tradeoff.</p>
+                <p class="note">Prepared January 2026 for OGP product interviews</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Executive Summary</div>
+        <h2 class="reveal">OGP sits in the global top tier</h2>
+        <p class="reveal">Across UN rankings and public benchmarks, Singapore remains a top-3 performer. The differentiator is not only maturity, but a distributed product model that compounds learning across 40+ services.</p>
+        <div class="grid cols-3">
+            <div class="card reveal">
+                <div class="data-tag">Benchmark</div>
+                <h3>Top-3 Global</h3>
+                <p>Consistent UN E-Government ranking alongside Denmark and South Korea.</p>
+            </div>
+            <div class="card reveal">
+                <div class="data-tag">Portfolio</div>
+                <h3>40+ Products</h3>
+                <p>Multi-product portfolio creates cross-learning not possible in single-agency models.</p>
+            </div>
+            <div class="card reveal">
+                <div class="data-tag">Insight</div>
+                <h3>No Perfect Blueprint</h3>
+                <p>Each peer agency trades off speed, trust, inclusion, or governance.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Tier-1 Overview</div>
+        <h2 class="reveal">Five global comparators</h2>
+        <div class="grid cols-5">
+            <div class="card reveal">
+                <h3>Denmark DIGST</h3>
+                <p><strong>UN Rank:</strong> Top 5</p>
+                <p><strong>Strength:</strong> Mandatory adoption</p>
+                <p><strong>Challenge:</strong> Inclusion gaps</p>
+            </div>
+            <div class="card reveal">
+                <h3>Estonia RIA</h3>
+                <p><strong>UN Rank:</strong> #1</p>
+                <p><strong>Strength:</strong> X-Road infrastructure</p>
+                <p><strong>Challenge:</strong> Security complexity</p>
+            </div>
+            <div class="card reveal">
+                <h3>Australia DTA</h3>
+                <p><strong>UN Rank:</strong> Top 10</p>
+                <p><strong>Strength:</strong> Digital sourcing</p>
+                <p><strong>Challenge:</strong> Federal fragmentation</p>
+            </div>
+            <div class="card reveal">
+                <h3>South Korea NIA</h3>
+                <p><strong>UN Rank:</strong> Top 3</p>
+                <p><strong>Strength:</strong> AI integration</p>
+                <p><strong>Challenge:</strong> Digital literacy</p>
+            </div>
+            <div class="card reveal">
+                <h3>UK GDS</h3>
+                <p><strong>UN Rank:</strong> Top 15</p>
+                <p><strong>Strength:</strong> UX leadership</p>
+                <p><strong>Challenge:</strong> Political fragmentation</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">OGP Advantage</div>
+        <h2 class="reveal">Why OGP wins on iteration speed</h2>
+        <div class="grid cols-2">
+            <div class="card reveal">
+                <h3>Speed of iteration</h3>
+                <p>40+ products iterate continuously, while peers refresh strategy on multi-year cycles.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Product diversity</h3>
+                <p>Multiple citizen segments drive varied feedback loops and faster learning.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Agility</h3>
+                <p>Smaller team size accelerates decision-making and cross-team execution.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Cross-product learning</h3>
+                <p>Insights from FormSG and Plumber inform Singpass, Parking.sg, and RedeemSG.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Country Snapshot</div>
+        <h2 class="reveal">Denmark: DIGST</h2>
+        <div class="grid cols-2">
+            <div class="card reveal">
+                <p><strong>Size:</strong> 400+</p>
+                <p><strong>Structure:</strong> Centralized digital transformation agency</p>
+                <p><strong>Key strength:</strong> Mandatory Digital Mailbox adoption (94%)</p>
+            </div>
+            <div class="card reveal">
+                <p><strong>Primary challenge:</strong> Digital inclusion gaps</p>
+                <p><strong>OGP lesson:</strong> Legislative reform accelerates adoption</p>
+                <p class="note">Mandatory usage + legal alignment drives rapid national uptake.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Country Snapshot</div>
+        <h2 class="reveal">Estonia: RIA + e-Governance</h2>
+        <div class="grid cols-2">
+            <div class="card reveal">
+                <p><strong>Size:</strong> ~300</p>
+                <p><strong>Structure:</strong> Dual model (policy + operations)</p>
+                <p><strong>Key strength:</strong> X-Road interoperability layer</p>
+            </div>
+            <div class="card reveal">
+                <p><strong>Primary challenge:</strong> Security and scaling complexity</p>
+                <p><strong>OGP lesson:</strong> Open-source infrastructure compounds ecosystem value</p>
+                <p class="note">EU structural funds + partnerships extend budget capacity.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Country Snapshot</div>
+        <h2 class="reveal">Australia: DTA</h2>
+        <div class="grid cols-2">
+            <div class="card reveal">
+                <p><strong>Size:</strong> 200-300</p>
+                <p><strong>Structure:</strong> Federal-state coordination model</p>
+                <p><strong>Key strength:</strong> Digital procurement marketplace</p>
+            </div>
+            <div class="card reveal">
+                <p><strong>Primary challenge:</strong> Federal fragmentation</p>
+                <p><strong>OGP lesson:</strong> Portfolio alignment under Finance increases authority</p>
+                <p class="note">Strategic sourcing panels reduce procurement friction.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Country Snapshot</div>
+        <h2 class="reveal">South Korea: NIA + MOIS</h2>
+        <div class="grid cols-2">
+            <div class="card reveal">
+                <p><strong>Size:</strong> 300-400</p>
+                <p><strong>Structure:</strong> Six-agency shared governance</p>
+                <p><strong>Key strength:</strong> AI integration (95% adoption by 2030)</p>
+            </div>
+            <div class="card reveal">
+                <p><strong>Primary challenge:</strong> Digital literacy gaps</p>
+                <p><strong>OGP lesson:</strong> Master Plan cycles enable long-term coordination</p>
+                <p class="note">AI ethics guardrails are established before scale.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Country Snapshot</div>
+        <h2 class="reveal">United Kingdom: GDS</h2>
+        <div class="grid cols-2">
+            <div class="card reveal">
+                <p><strong>Size:</strong> ~150-200</p>
+                <p><strong>Structure:</strong> Cabinet Office unit</p>
+                <p><strong>Key strength:</strong> UX + transparency leadership</p>
+            </div>
+            <div class="card reveal">
+                <p><strong>Primary challenge:</strong> Political fragmentation</p>
+                <p><strong>OGP lesson:</strong> Publish roadmaps and digital assessments</p>
+                <p class="note">Algorithmic transparency supports public trust.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Key Themes</div>
+        <h2 class="reveal">Five interview-ready themes</h2>
+        <div class="grid cols-3">
+            <div class="card reveal">
+                <h3>Organizational structure</h3>
+                <p>Distributed portfolios accelerate innovation vs centralized agencies.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Citizen trust</h3>
+                <p>Mandatory adoption boosts literacy but demands strong inclusion efforts.</p>
+            </div>
+            <div class="card reveal">
+                <h3>AI governance</h3>
+                <p>Ethics-first guardrails allow rapid innovation at scale.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Digital inclusion</h3>
+                <p>Accessibility gaps require explicit mandates and feedback loops.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Funding models</h3>
+                <p>EU funds and digital marketplaces unlock non-budget leverage.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">Narratives Ready</div>
+        <h2 class="reveal">Three storylines to anchor discussion</h2>
+        <div class="grid cols-2">
+            <div class="card reveal">
+                <h3>Agility through diversity</h3>
+                <p>40 products create ecosystem intelligence that single agencies cannot replicate.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Trust through infrastructure</h3>
+                <p>Position platforms like RedeemSG as infrastructure and measure uptime, not delight.</p>
+            </div>
+            <div class="card reveal">
+                <h3>Governance through transparency</h3>
+                <p>Publish algorithmic records and security surveys to sustain trust.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="kicker reveal">How to Use</div>
+        <h2 class="reveal">Bring the comparison into interviews</h2>
+        <div class="hero-card reveal">
+            <p><strong>1.</strong> Open with the executive summary and comparative table.</p>
+            <p><strong>2.</strong> Pick one country profile to go deep based on the discussion.</p>
+            <p><strong>3.</strong> Use the five themes to structure follow-up questions.</p>
+            <p><strong>4.</strong> Reference infrastructure precedents when discussing RedeemSG.</p>
+            <p class="note">Source files: research/interview-prep-govtech-comparatives.md and research/comparison_with_other_govtechs.md</p>
+        </div>
+    </section>
+
+    <script>
+        const slides = Array.from(document.querySelectorAll(".slide"));
+        const nav = document.querySelector(".nav-dots");
+        const progressBar = document.querySelector(".progress-bar");
+
+        slides.forEach((slide, index) => {
+            const dot = document.createElement("button");
+            dot.className = "nav-dot";
+            dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
+            dot.addEventListener("click", () => {
+                slide.scrollIntoView({ behavior: "smooth" });
+            });
+            nav.appendChild(dot);
+        });
+
+        const dots = Array.from(document.querySelectorAll(".nav-dot"));
+
+        const revealObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                    }
+                });
+            },
+            { threshold: 0.2 }
+        );
+
+        document.querySelectorAll(".reveal").forEach((item) => {
+            revealObserver.observe(item);
+        });
+
+        const updateProgress = () => {
+            const total = document.body.scrollHeight - window.innerHeight;
+            const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
+            progressBar.style.width = `${progress}%`;
+
+            let activeIndex = 0;
+            slides.forEach((slide, index) => {
+                const rect = slide.getBoundingClientRect();
+                if (rect.top <= window.innerHeight * 0.4 && rect.bottom >= window.innerHeight * 0.4) {
+                    activeIndex = index;
+                }
+            });
+            dots.forEach((dot, index) => {
+                dot.classList.toggle("active", index === activeIndex);
+            });
+        };
+
+        window.addEventListener("scroll", updateProgress, { passive: true });
+        updateProgress();
+    </script>
+</body>
+</html>
