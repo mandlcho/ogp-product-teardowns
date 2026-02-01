@@ -477,7 +477,7 @@ UK GDS excels at **transparency + leadership upskilling** but struggles with **p
 
 ## 6. GitHub Research Repository
 
-**Live PR:** https://github.com/mandlcho/ogp-product-teardowns/compare/main...research/govtech-equivalents-tier1
+**Live PR:** https://github.com/mandlcho/product-case-studies/compare/main...research/govtech-equivalents-tier1
 
 **Structure:**
 ```
