@@ -1,5 +1,7 @@
 # OGP Product Teardowns (private)
 
+**Live site:** [mandlcho.github.io/product-case-studies](https://mandlcho.github.io/product-case-studies/)
+
 Private working repo for full teardowns of **all OGP products**, written from a Product Manager perspective.
 
 ## Why private?
