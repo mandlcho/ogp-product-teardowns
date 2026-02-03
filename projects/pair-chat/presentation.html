@@ -452,13 +452,55 @@
             margin-bottom: var(--spacing-md);
         }
         
-        .feature-card h3 {
-            margin-bottom: var(--spacing-sm);
-        }
-        
-        /* ===========================================
-           RESPONSIVE
-           =========================================== */
+         .feature-card h3 {
+             margin-bottom: var(--spacing-sm);
+         }
+         
+         /* ===========================================
+            TABLE STYLES
+            =========================================== */
+         table {
+             background: var(--color-bg-secondary);
+             border-radius: var(--radius-lg);
+             overflow: hidden;
+         }
+         
+         table th {
+             background: var(--color-bg-tertiary);
+             text-transform: uppercase;
+             font-size: var(--font-size-xs);
+             letter-spacing: 0.05em;
+         }
+         
+         table tr {
+             transition: background-color var(--transition-fast);
+         }
+         
+         table tbody tr:hover {
+             background-color: var(--color-bg-tertiary);
+         }
+         
+         table td, table th {
+             vertical-align: middle;
+         }
+         
+         /* ===========================================
+            LIST STYLES
+            =========================================== */
+         ul {
+             list-style: none;
+         }
+         
+         ul li::before {
+             content: "▸ ";
+             color: var(--color-accent-primary);
+             font-weight: var(--font-weight-bold);
+             margin-right: var(--spacing-sm);
+         }
+         
+         /* ===========================================
+            RESPONSIVE
+            =========================================== */
         @media (max-width: 768px) {
             .nav-links {
                 gap: var(--spacing-md);
@@ -528,12 +570,14 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">Pair Chat</div>
-                <nav class="nav-links">
-                    <a href="#problem">Problem</a>
-                    <a href="#solution">Solution</a>
-                    <a href="#impact">Impact</a>
-                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
-                </nav>
+         <nav class="nav-links">
+                     <a href="#problem">Problem</a>
+                     <a href="#solution">Solution</a>
+                     <a href="#impact">Impact</a>
+                     <a href="#solutions">Recommendations</a>
+                     <a href="#tools">AI Agents</a>
+                     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+                 </nav>
             </div>
         </div>
     </header>
@@ -552,15 +596,17 @@
                         Dive Into the Analysis
                     </button>
                     
-                    <div class="hero-nav">
-                        <p>Quick sections:</p>
-                        <div class="hero-nav-links">
-                            <a href="#problem" class="hero-nav-link">Problem</a>
-                            <a href="#solution" class="hero-nav-link">Solution</a>
-                            <a href="#impact" class="hero-nav-link">Impact</a>
-                            <a href="#adoption" class="hero-nav-link">Gap Analysis</a>
-                        </div>
-                    </div>
+                     <div class="hero-nav">
+                         <p>Jump to:</p>
+                         <div class="hero-nav-links">
+                             <a href="#problem" class="hero-nav-link">Problem</a>
+                             <a href="#solution" class="hero-nav-link">Solution</a>
+                             <a href="#adoption" class="hero-nav-link">The Gap</a>
+                             <a href="#solutions" class="hero-nav-link">Recommendations</a>
+                             <a href="#tools" class="hero-nav-link">AI Agents</a>
+                             <a href="#roadmap" class="hero-nav-link">Roadmap</a>
+                         </div>
+                     </div>
                 </div>
             </div>
         </section>
@@ -668,88 +714,352 @@
             </div>
         </section>
         
-        <!-- ADOPTION FUNNEL SECTION -->
-        <section id="adoption" style="background: var(--color-bg-secondary);">
-            <div class="container">
-                <p class="eyebrow">The Opportunity</p>
-                <h2>The Activation Gap</h2>
-                <p>
-                    Pair Chat reaches 78,500 officers, but the real story is the 81,500 who haven't adopted yet. Understanding this gap reveals the next frontier for growth.
-                </p>
-                
-                <!-- Funnel Visualization with Scroll Animation -->
-                <div id="funnel-container" style="margin: var(--spacing-xl) 0; display: flex; justify-content: center; position: relative; min-height: 600px;">
-                    <svg id="adoption-funnel" viewBox="0 0 600 500" style="max-width: 100%; height: auto; max-height: 500px; position: sticky; top: 100px;">
-                        <!-- Background -->
-                        <defs>
-                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:var(--color-accent-primary);stop-opacity:0.15" />
-                                <stop offset="100%" style="stop-color:var(--color-accent-secondary);stop-opacity:0.15" />
-                            </linearGradient>
-                        </defs>
-                        
-                        <!-- Stage 1: Eligible Officers -->
-                        <g id="stage-1">
-                            <polygon id="stage-1-poly" points="100,50 500,50 480,120 120,120" fill="var(--color-accent-primary)" opacity="0.2" stroke="var(--color-accent-primary)" stroke-width="2"/>
-                            <text x="300" y="95" text-anchor="middle" font-size="24" font-weight="bold" fill="var(--color-text-primary)">160,000</text>
-                            <text x="300" y="135" text-anchor="middle" font-size="14" fill="var(--color-text-secondary)">Eligible Officers</text>
-                        </g>
-                        
-                        <!-- Arrow Down -->
-                        <line x1="300" y1="140" x2="300" y2="170" stroke="var(--color-border-default)" stroke-width="2" marker-end="url(#arrowhead)"/>
-                        <defs>
-                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                                <polygon points="0 0, 10 5, 0 10" fill="var(--color-border-default)" />
-                            </marker>
-                        </defs>
-                        
-                        <!-- Stage 2: Active Users -->
-                        <g id="stage-2">
-                            <polygon id="stage-2-poly" points="130,180 470,180 430,280 170,280" fill="var(--color-accent-primary)" opacity="0.4" stroke="var(--color-accent-primary)" stroke-width="2"/>
-                            <text x="300" y="245" text-anchor="middle" font-size="24" font-weight="bold" fill="var(--color-text-primary)">78,500</text>
-                            <text x="300" y="285" text-anchor="middle" font-size="14" fill="var(--color-text-secondary)">Monthly Active Users</text>
-                        </g>
-                        
-                        <!-- Gap Highlight -->
-                        <g id="gap-highlight">
-                            <rect id="gap-rect" x="100" y="310" width="400" height="120" fill="var(--color-accent-secondary)" opacity="0.15" rx="8"/>
-                            <text x="300" y="340" text-anchor="middle" font-size="20" font-weight="bold" fill="var(--color-accent-secondary)">THE GAP</text>
-                            <text id="gap-number" x="300" y="368" text-anchor="middle" font-size="28" font-weight="bold" fill="var(--color-text-primary)">81,500</text>
-                            <text id="gap-label" x="300" y="395" text-anchor="middle" font-size="14" fill="var(--color-text-secondary)">Untapped Officers (51% of eligible)</text>
-                        </g>
-                        
-                        <!-- Bottom annotation -->
-                        <text x="300" y="460" text-anchor="middle" font-size="12" fill="var(--color-text-muted)">Q3 2025 Data | Source: Pair Reports</text>
-                    </svg>
-                </div>
-                
-                <!-- Gap Analysis Cards -->
-                <h3 style="margin-top: var(--spacing-xl);">Why The Gap Exists</h3>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🔐</div>
-                        <h4>Trust & Security Skepticism</h4>
-                        <p>Despite secure positioning, officers worry: "Is this really safe?" "What happens to my data?" Perception lags reality.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📱</div>
-                        <h4>Device & Network Constraints</h4>
-                        <p>Only compatible with non-SE GSIBs and GOMAX iPads. Restricted access = restricted adoption. Officers on other devices are blocked.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎓</div>
-                        <h4>Lack of Onboarding & Use Cases</h4>
-                        <p>No clear "here's how this saves YOUR time" messaging. Officers don't know what Pair Chat can do for their specific role.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔌</div>
-                        <h4>Workflow Integration Friction</h4>
-                        <p>Outputs still need rework. Pair Chat feels like "nice-to-have" instead of "must-have" tool in daily workflows.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+         <!-- ADOPTION FUNNEL SECTION -->
+         <section id="adoption" style="background: var(--color-bg-secondary);">
+             <div class="container">
+                 <p class="eyebrow">The Opportunity</p>
+                 <h2>The Activation Gap</h2>
+                 <p>
+                     Pair Chat reaches 78,500 officers, but the real story is the 81,500 who haven't adopted yet. Understanding this gap reveals the next frontier for growth.
+                 </p>
+                 
+                 <!-- Funnel Visualization with Scroll Animation -->
+                 <div id="funnel-container" style="margin: var(--spacing-xl) 0; display: flex; justify-content: center; position: relative; min-height: 600px;">
+                     <svg id="adoption-funnel" viewBox="0 0 600 500" style="max-width: 100%; height: auto; max-height: 500px; position: sticky; top: 100px;">
+                         <!-- Background -->
+                         <defs>
+                             <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                 <stop offset="0%" style="stop-color:var(--color-accent-primary);stop-opacity:0.15" />
+                                 <stop offset="100%" style="stop-color:var(--color-accent-secondary);stop-opacity:0.15" />
+                             </linearGradient>
+                         </defs>
+                         
+                         <!-- Stage 1: Eligible Officers -->
+                         <g id="stage-1">
+                             <polygon id="stage-1-poly" points="100,50 500,50 480,120 120,120" fill="var(--color-accent-primary)" opacity="0.2" stroke="var(--color-accent-primary)" stroke-width="2"/>
+                             <text x="300" y="95" text-anchor="middle" font-size="24" font-weight="bold" fill="var(--color-text-primary)">160,000</text>
+                             <text x="300" y="135" text-anchor="middle" font-size="14" fill="var(--color-text-secondary)">Eligible Officers</text>
+                         </g>
+                         
+                         <!-- Arrow Down -->
+                         <line x1="300" y1="140" x2="300" y2="170" stroke="var(--color-border-default)" stroke-width="2" marker-end="url(#arrowhead)"/>
+                         <defs>
+                             <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                 <polygon points="0 0, 10 5, 0 10" fill="var(--color-border-default)" />
+                             </marker>
+                         </defs>
+                         
+                         <!-- Stage 2: Active Users -->
+                         <g id="stage-2">
+                             <polygon id="stage-2-poly" points="130,180 470,180 430,280 170,280" fill="var(--color-accent-primary)" opacity="0.4" stroke="var(--color-accent-primary)" stroke-width="2"/>
+                             <text x="300" y="245" text-anchor="middle" font-size="24" font-weight="bold" fill="var(--color-text-primary)">78,500</text>
+                             <text x="300" y="285" text-anchor="middle" font-size="14" fill="var(--color-text-secondary)">Monthly Active Users</text>
+                         </g>
+                         
+                         <!-- Gap Highlight -->
+                         <g id="gap-highlight">
+                             <rect id="gap-rect" x="100" y="310" width="400" height="120" fill="var(--color-accent-secondary)" opacity="0.15" rx="8"/>
+                             <text x="300" y="340" text-anchor="middle" font-size="20" font-weight="bold" fill="var(--color-accent-secondary)">THE GAP</text>
+                             <text id="gap-number" x="300" y="368" text-anchor="middle" font-size="28" font-weight="bold" fill="var(--color-text-primary)">81,500</text>
+                             <text id="gap-label" x="300" y="395" text-anchor="middle" font-size="14" fill="var(--color-text-secondary)">Untapped Officers (51% of eligible)</text>
+                         </g>
+                         
+                         <!-- Bottom annotation -->
+                         <text x="300" y="460" text-anchor="middle" font-size="12" fill="var(--color-text-muted)">Q3 2025 Data | Source: Pair Reports</text>
+                     </svg>
+                 </div>
+                 
+                 <!-- Gap Analysis Cards -->
+                 <h3 style="margin-top: var(--spacing-xl);">Why The Gap Exists</h3>
+                 <div class="feature-grid">
+                     <div class="feature-card">
+                         <div class="feature-icon">🔐</div>
+                         <h4>Trust & Security Skepticism</h4>
+                         <p>Despite secure positioning, officers worry: "Is this really safe?" "What happens to my data?" Perception lags reality.</p>
+                     </div>
+                     <div class="feature-card">
+                         <div class="feature-icon">📱</div>
+                         <h4>Device & Network Constraints</h4>
+                         <p>Only compatible with non-SE GSIBs and GOMAX iPads. Restricted access = restricted adoption. Officers on other devices are blocked.</p>
+                     </div>
+                     <div class="feature-card">
+                         <div class="feature-icon">🎓</div>
+                         <h4>Lack of Onboarding & Use Cases</h4>
+                         <p>No clear "here's how this saves YOUR time" messaging. Officers don't know what Pair Chat can do for their specific role.</p>
+                     </div>
+                     <div class="feature-card">
+                         <div class="feature-icon">🔌</div>
+                         <h4>Workflow Integration Friction</h4>
+                         <p>Outputs still need rework. Pair Chat feels like "nice-to-have" instead of "must-have" tool in daily workflows.</p>
+                     </div>
+                 </div>
+             </div>
+         </section>
+
+         <!-- SOLUTIONS SECTION -->
+         <section id="solutions">
+             <div class="container">
+                 <p class="eyebrow">Closing The Gap</p>
+                 <h2>3 Strategic Recommendations</h2>
+                 <p>
+                     Closing the 81,500-officer gap requires action on multiple fronts. Here's how OGP can unlock the remaining adoption potential.
+                 </p>
+                 
+                 <div class="feature-grid">
+                     <div class="feature-card" style="border-top: 4px solid var(--color-accent-primary);">
+                         <div class="feature-icon">📚</div>
+                         <h3>1. Education & Awareness</h3>
+                         <p style="margin-bottom: var(--spacing-md); color: var(--color-text-muted); font-size: var(--font-size-xs);">Build trust through transparency</p>
+                         <ul style="margin: 0; padding-left: var(--spacing-lg); color: var(--color-text-secondary);">
+                             <li style="margin-bottom: var(--spacing-sm);">Launch security documentation: "Here's how your data stays safe"</li>
+                             <li style="margin-bottom: var(--spacing-sm);">Case studies by role: "How policy officers use Pair" (cost savings, time saved)</li>
+                             <li style="margin-bottom: var(--spacing-sm);">Live demos + office hours (biweekly webinars by ministry)</li>
+                             <li>Success stories from early adopters + testimonials</li>
+                         </ul>
+                     </div>
+                     
+                     <div class="feature-card" style="border-top: 4px solid var(--color-accent-secondary);">
+                         <div class="feature-icon">⚙️</div>
+                         <h3>2. Product Improvements</h3>
+                         <p style="margin-bottom: var(--spacing-md); color: var(--color-text-muted); font-size: var(--font-size-xs);">Remove adoption friction</p>
+                         <ul style="margin: 0; padding-left: var(--spacing-lg); color: var(--color-text-secondary);">
+                             <li style="margin-bottom: var(--spacing-sm);">Better onboarding: Role-based templates (policy vs operations vs admin)</li>
+                             <li style="margin-bottom: var(--spacing-sm);">Expand device support: Negotiate access for SE GSIBs + other networks</li>
+                             <li style="margin-bottom: var(--spacing-sm);">Pre-built templates for common tasks (memo drafting, data analysis)</li>
+                             <li>Workflow integration: Copy-paste outputs → direct to Word/SharePoint</li>
+                         </ul>
+                     </div>
+                     
+                     <div class="feature-card" style="border-top: 4px solid var(--color-accent-secondary);">
+                         <div class="feature-icon">🏢</div>
+                         <h3>3. Organizational Push</h3>
+                         <p style="margin-bottom: var(--spacing-md); color: var(--color-text-muted); font-size: var(--font-size-xs);">Make adoption the default</p>
+                         <ul style="margin: 0; padding-left: var(--spacing-lg); color: var(--color-text-secondary);">
+                             <li style="margin-bottom: var(--spacing-sm);">Leadership mandate: Ministry CIOs commit to "AI-first" policy writing</li>
+                             <li style="margin-bottom: var(--spacing-sm);">Team integration: Pair Chat becomes standard in policy unit workflows</li>
+                             <li style="margin-bottom: var(--spacing-sm);">Incentives: Budget credits for teams using Pair (prove ROI)</li>
+                             <li>Training programs: Pair Chat workshops in onboarding for new officers</li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+         </section>
+
+         <!-- TOOL IMPROVEMENTS SECTION -->
+         <section id="tools" style="background: var(--color-bg-secondary);">
+             <div class="container">
+                 <p class="eyebrow">Next Generation</p>
+                 <h2>Beyond Chat: AI Agents for Government</h2>
+                 <p>
+                     Pair Chat's foundation is strong. The next frontier is specialized AI agents—each optimized for specific government workflows. Here's the vision.
+                 </p>
+                 
+                 <div style="margin: var(--spacing-xl) 0; overflow-x: auto;">
+                     <table style="width: 100%; border-collapse: collapse; font-size: var(--font-size-sm);">
+                         <thead>
+                             <tr style="border-bottom: 2px solid var(--color-border-default);">
+                                 <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold);">Agent Type</th>
+                                 <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold);">Use Cases</th>
+                                 <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold);">Model</th>
+                                 <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold);">Why This Model</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             <tr style="border-bottom: 1px solid var(--color-border-default);">
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-primary);"><strong>🔍 Research Agent</strong></td>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-secondary);">Literature reviews, policy precedents, data gathering, trend analysis</td>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-secondary);">Perplexity AI / NotebookLM</td>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-muted);">Handles long-context documents + web search, perfect for policy research</td>
+                             </tr>
+                             <tr style="border-bottom: 1px solid var(--color-border-default);">
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-primary);"><strong>💻 Code Agent</strong></td>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-secondary);">Coding tasks, debugging, script generation, automation workflows</td>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-secondary);">Claude Sonnet / Opus</td>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-muted);">Superior code quality + reasoning for complex logic, debugging</td>
+                             </tr>
+                             <tr>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-primary);"><strong>📝 Policy Agent</strong></td>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-secondary);">Memo/policy drafting, structured documents, regulatory analysis</td>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-secondary);">Claude Haiku</td>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-muted);">Fast + specific for well-defined tasks, lower latency for quick drafts</td>
+                             </tr>
+                         </tbody>
+                     </table>
+                 </div>
+                 
+                 <h3 style="margin-top: var(--spacing-xl);">How It Works</h3>
+                 <div class="feature-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                     <div class="feature-card">
+                         <div class="feature-icon">1️⃣</div>
+                         <h4>Paste Content</h4>
+                         <p>Paste a URL, upload a document, or paste text.</p>
+                     </div>
+                     <div class="feature-card">
+                         <div class="feature-icon">2️⃣</div>
+                         <h4>Select Agent</h4>
+                         <p>Choose the agent for your task: Research, Code, or Policy.</p>
+                     </div>
+                     <div class="feature-card">
+                         <div class="feature-icon">3️⃣</div>
+                         <h4>Get Output</h4>
+                         <p>Agent processes + returns structured, actionable output.</p>
+                     </div>
+                 </div>
+                 
+                 <div style="background: var(--color-bg-tertiary); border-radius: var(--radius-lg); padding: var(--spacing-lg); margin-top: var(--spacing-xl);">
+                     <h4 style="margin-bottom: var(--spacing-md);">Example: Research Agent In Action</h4>
+                     <p style="color: var(--color-text-muted); font-size: var(--font-size-xs); margin-bottom: var(--spacing-md);">Policy officer drafting proposal on digital payment adoption</p>
+                     <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-md);"><strong>Input:</strong> "Compare digital payment adoption rates in Singapore vs comparable Asian economies"</p>
+                     <p style="color: var(--color-accent-primary);"><strong>Output:</strong> Structured comparison table + key findings + policy precedents + citations ready for memo</p>
+                 </div>
+             </div>
+         </section>
+
+         <!-- COMPETITIVE LANDSCAPE SECTION -->
+         <section id="competitive">
+             <div class="container">
+                 <p class="eyebrow">Market Position</p>
+                 <h2>How Pair Chat Compares</h2>
+                 <p>
+                     Pair Chat isn't competing with ChatGPT in the consumer space. It's a different category: secure, government-optimized AI. Here's how it stacks up.
+                 </p>
+                 
+                 <div style="margin: var(--spacing-xl) 0; overflow-x: auto;">
+                     <table style="width: 100%; border-collapse: collapse; font-size: var(--font-size-sm);">
+                         <thead>
+                             <tr style="border-bottom: 2px solid var(--color-border-default);">
+                                 <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold);">Feature</th>
+                                 <th style="text-align: center; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold);">Pair Chat</th>
+                                 <th style="text-align: center; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold);">ChatGPT</th>
+                                 <th style="text-align: center; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold);">UK GDS Roadmap*</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             <tr style="border-bottom: 1px solid var(--color-border-default);">
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-primary);"><strong>Data Storage</strong></td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-accent-secondary);">✅ Singapore only</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-text-muted);">🌍 Global cloud</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-text-muted);">🌍 UK servers</td>
+                             </tr>
+                             <tr style="border-bottom: 1px solid var(--color-border-default);">
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-primary);"><strong>Cost</strong></td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-accent-secondary);">✅ Free</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-text-secondary);">💰 $20/mo</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-text-muted);">[Pending]</td>
+                             </tr>
+                             <tr style="border-bottom: 1px solid var(--color-border-default);">
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-primary);"><strong>Assistants/Automation</strong></td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-accent-secondary);">✅ Yes (agents)</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-accent-secondary);">✅ GPTs</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-text-muted);">TBD</td>
+                             </tr>
+                             <tr style="border-bottom: 1px solid var(--color-border-default);">
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-primary);"><strong>Batch Processing</strong></td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-accent-secondary);">✅ Yes</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-accent-secondary);">✅ Batch API</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-text-muted);">TBD</td>
+                             </tr>
+                             <tr style="border-bottom: 1px solid var(--color-border-default);">
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-primary);"><strong>Gov-Specific Templates</strong></td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-accent-secondary);">✅ Yes</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-text-muted);">❌ Generic</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-accent-primary);">🔜 Planned</td>
+                             </tr>
+                             <tr>
+                                 <td style="padding: var(--spacing-md); color: var(--color-text-primary);"><strong>Security Certifications</strong></td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-accent-secondary);">✅ PDPA, ISOIEC</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-text-secondary);">⚠️ Limited</td>
+                                 <td style="padding: var(--spacing-md); text-align: center; color: var(--color-text-secondary);">⚠️ UK-specific</td>
+                             </tr>
+                         </tbody>
+                     </table>
+                 </div>
+                 <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin-top: var(--spacing-md);">* UK GDS launching Government Mailbox + API standards mandate 2026-2030. Different model, same problem being solved.</p>
+             </div>
+         </section>
+
+         <!-- ROADMAP SECTION -->
+         <section id="roadmap" style="background: var(--color-bg-secondary);">
+             <div class="container">
+                 <p class="eyebrow">The Path Forward</p>
+                 <h2>3-Year Roadmap: Closing the Gap</h2>
+                 <p>
+                     How to grow from 78.5K to 130K+ officers while unlocking new use cases through specialized agents.
+                 </p>
+                 
+                 <div style="margin: var(--spacing-xl) 0;">
+                     <!-- Phase 1 -->
+                     <div style="margin-bottom: var(--spacing-2xl); padding: var(--spacing-lg); background: var(--color-bg-primary); border-radius: var(--radius-lg); border-left: 4px solid var(--color-accent-primary);">
+                         <h3 style="margin-bottom: var(--spacing-sm);">📅 Phase 1: Close The Adoption Gap (Months 1-3)</h3>
+                         <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">Goal: 78.5K → 100K+ MAU (27% growth)</p>
+                         <ul style="margin: 0; padding-left: var(--spacing-lg); color: var(--color-text-secondary);">
+                             <li style="margin-bottom: var(--spacing-sm);"><strong>Education push:</strong> Launch security docs, case studies, webinars</li>
+                             <li style="margin-bottom: var(--spacing-sm);"><strong>Product quick wins:</strong> Role-based templates, better onboarding</li>
+                             <li style="margin-bottom: var(--spacing-sm);"><strong>Org leverage:</strong> Ministry CIO mandates + team integration</li>
+                             <li><strong>Success metric:</strong> NPS +5 points, app store rating 4.2/5+</li>
+                         </ul>
+                     </div>
+
+                     <!-- Phase 2 -->
+                     <div style="margin-bottom: var(--spacing-2xl); padding: var(--spacing-lg); background: var(--color-bg-primary); border-radius: var(--radius-lg); border-left: 4px solid var(--color-accent-primary);">
+                         <h3 style="margin-bottom: var(--spacing-sm);">🚀 Phase 2: Introduce AI Agents (Months 4-6)</h3>
+                         <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">Goal: Unlock new workflows, expand to 110K+ MAU</p>
+                         <ul style="margin: 0; padding-left: var(--spacing-lg); color: var(--color-text-secondary);">
+                             <li style="margin-bottom: var(--spacing-sm);"><strong>Research Agent (beta):</strong> Policy officers → 90-min research tasks → 15 mins</li>
+                             <li style="margin-bottom: var(--spacing-sm);"><strong>Code Agent (beta):</strong> Engineering teams → automation scripts</li>
+                             <li style="margin-bottom: var(--spacing-sm);"><strong>Policy Agent (GA):</strong> Memo drafting → 80% first draft quality</li>
+                             <li><strong>Success metric:</strong> 50K+ agent tasks/month, 40% of new user signups from agent discovery</li>
+                         </ul>
+                     </div>
+
+                     <!-- Phase 3 -->
+                     <div style="padding: var(--spacing-lg); background: var(--color-bg-primary); border-radius: var(--radius-lg); border-left: 4px solid var(--color-accent-primary);">
+                         <h3 style="margin-bottom: var(--spacing-sm);">🏛️ Phase 3: Enterprise Integration (Months 7-12)</h3>
+                         <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">Goal: 120K+ MAU, integrate with SharePoint/Word/existing gov systems</p>
+                         <ul style="margin: 0; padding-left: var(--spacing-lg); color: var(--color-text-secondary);">
+                             <li style="margin-bottom: var(--spacing-sm);"><strong>Workflow automation:</strong> Pair → SharePoint documents directly</li>
+                             <li style="margin-bottom: var(--spacing-sm);"><strong>Advanced agents:</strong> Analytics Agent, Compliance Agent</li>
+                             <li style="margin-bottom: var(--spacing-sm);"><strong>Multi-agency pilots:</strong> Ministry of Health, Defense (classified workflows)</li>
+                             <li><strong>Success metric:</strong> 100M+ total tasks processed, $50M+ estimated value created</li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+         </section>
+
+         <!-- CONCLUSION SECTION -->
+         <section id="conclusion">
+             <div class="container">
+                 <p class="eyebrow">The Opportunity</p>
+                 <h2>Pair Chat's Next Chapter</h2>
+                 <p style="font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-bottom: var(--spacing-lg);">
+                     Pair Chat has proven product-market fit with 78,500 officers. The 81,500 who haven't adopted yet aren't skeptics—they're waiting for better onboarding, wider access, and clearer use cases.
+                 </p>
+                 <p style="font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-bottom: var(--spacing-lg);">
+                     By combining smart education, product improvements, and AI agents, OGP can close this gap within 6 months and position Pair Chat as the standard AI tool for government work in Singapore.
+                 </p>
+                 
+                 <div class="stats-grid" style="margin-top: var(--spacing-xl);">
+                     <div class="stat-card">
+                         <div class="stat-value">160K</div>
+                         <div class="stat-label">Total Eligible Officers</div>
+                     </div>
+                     <div class="stat-card">
+                         <div class="stat-value">81.5K</div>
+                         <div class="stat-label">Addressable Opportunity</div>
+                     </div>
+                     <div class="stat-card">
+                         <div class="stat-value">$50M+</div>
+                         <div class="stat-label">Additional Value at 120K MAU</div>
+                     </div>
+                     <div class="stat-card">
+                         <div class="stat-value">6 months</div>
+                         <div class="stat-label">Timeline to 100K MAU</div>
+                     </div>
+                 </div>
+             </div>
+         </section>
+     </main>
     
     <script>
         // Theme Toggle
