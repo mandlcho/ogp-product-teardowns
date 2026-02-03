@@ -38,14 +38,14 @@
             --font-family-sans: 'Inter', sans-serif;
             --font-family-mono: 'JetBrains Mono', monospace;
             
-            --font-size-xs: 1rem;
-            --font-size-sm: 1.125rem;
-            --font-size-base: 1.25rem;
-            --font-size-lg: 1.375rem;
-            --font-size-xl: 2rem;
-            --font-size-2xl: 2.75rem;
-            --font-size-3xl: 3.25rem;
-            --font-size-4xl: 3.75rem;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.84375rem;
+            --font-size-base: 0.9375rem;
+            --font-size-lg: 1.03125rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 2.0625rem;
+            --font-size-3xl: 2.4375rem;
+            --font-size-4xl: 2.8125rem;
             
             --font-weight-light: 300;
             --font-weight-regular: 400;
@@ -144,7 +144,7 @@
         }
         
         h1 {
-            font-size: clamp(2.5rem, 5vw, var(--font-size-4xl));
+            font-size: clamp(1.875rem, 5vw, 2.8125rem);
             letter-spacing: -0.02em;
         }
         
@@ -398,7 +398,7 @@
         }
         
         .stat-value {
-            font-size: clamp(2.5rem, 4vw, 3.75rem);
+            font-size: clamp(1.875rem, 4vw, 2.8125rem);
             font-weight: var(--font-weight-bold);
             color: var(--color-accent-primary);
             line-height: 1;
@@ -448,7 +448,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
+            font-size: 1.3125rem;
             margin-bottom: var(--spacing-md);
         }
         
@@ -606,13 +606,13 @@
          }
          
          html[data-platform="mobile"] .nav-icon {
-             font-size: 18px;
-         }
-         
-         html[data-platform="mobile"] .nav-label {
-             font-size: 8px;
-             font-weight: var(--font-weight-semibold);
-         }
+              font-size: 13.5px;
+          }
+          
+          html[data-platform="mobile"] .nav-label {
+              font-size: 6px;
+              font-weight: var(--font-weight-semibold);
+          }
          
          /* Tablet - Icon + Label horizontal */
          html[data-platform="tablet"] .floating-nav-content {
@@ -628,12 +628,12 @@
          }
          
          html[data-platform="tablet"] .nav-icon {
-             font-size: 16px;
-         }
-         
-         html[data-platform="tablet"] .nav-label {
-             font-size: 10px;
-         }
+              font-size: 12px;
+          }
+          
+          html[data-platform="tablet"] .nav-label {
+              font-size: 7.5px;
+          }
          
          /* Desktop - Full labels with hover tooltips */
          html[data-platform="desktop"] .floating-nav-content {
@@ -649,13 +649,13 @@
          }
          
          html[data-platform="desktop"] .nav-icon {
-             font-size: 20px;
-         }
-         
-         html[data-platform="desktop"] .nav-label {
-             font-size: 11px;
-             font-weight: var(--font-weight-semibold);
-         }
+              font-size: 15px;
+          }
+          
+          html[data-platform="desktop"] .nav-label {
+              font-size: 8.25px;
+              font-weight: var(--font-weight-semibold);
+          }
          
          /* ===========================================
             RESPONSIVE FALLBACK (Media Queries)
@@ -673,13 +673,13 @@
                  min-width: auto;
              }
              
-             .nav-icon {
-                 font-size: 14px;
-             }
-             
-             .nav-label {
-                 font-size: 9px;
-             }
+              .nav-icon {
+                  font-size: 10.5px;
+              }
+              
+              .nav-label {
+                  font-size: 6.75px;
+              }
          }
          
          @media (max-width: 480px) {
@@ -702,14 +702,14 @@
                  min-width: 42px;
              }
              
-             .nav-icon {
-                 font-size: 16px;
-             }
-             
-             .nav-label {
-                 font-size: 8px;
-             }
-         }
+              .nav-icon {
+                  font-size: 12px;
+              }
+              
+              .nav-label {
+                  font-size: 6px;
+              }
+          }
          
          /* ===========================================
             RESPONSIVE
@@ -938,8 +938,8 @@
                      <rect x="423" y="30" width="357" height="50" fill="var(--color-accent-secondary)" rx="6"/>
                      
                      <!-- Labels - White text for dark mode, adjust for light mode -->
-                     <text x="251" y="63" font-size="14" font-weight="bold" fill="white" text-anchor="middle" style="mix-blend-mode: lighten;">78.5K (49%)</text>
-                     <text x="601" y="63" font-size="14" font-weight="bold" fill="white" text-anchor="middle" style="mix-blend-mode: lighten;">81.5K (51%)</text>
+                     <text x="251" y="63" font-size="10.5" font-weight="bold" fill="white" text-anchor="middle" style="mix-blend-mode: lighten;">78.5K (49%)</text>
+                     <text x="601" y="63" font-size="10.5" font-weight="bold" fill="white" text-anchor="middle" style="mix-blend-mode: lighten;">81.5K (51%)</text>
                  </svg>
                  
                  <!-- Gap Analysis Cards -->
