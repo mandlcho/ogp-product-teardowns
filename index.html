@@ -3,50 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Strategic product analyses with user research, data-driven insights, and actionable 30/60/90 day roadmaps.">
+    <meta name="theme-color" content="#f8f9fa">
     <title>Product Teardowns & Strategy Studies | Mandl Cho</title>
     
-    <!-- Fonts -->
+    <!-- Fonts with font-display for optimal loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <style>
+    <!-- Preload critical resources -->
+    <link rel="preload" as="style" href="#inline-styles">
+    
+    <style id="inline-styles">
         /* ===========================================
-           CSS CUSTOM PROPERTIES (THEME)
+           CSS CUSTOM PROPERTIES & DESIGN TOKENS
            =========================================== */
         :root {
-            /* Colors */
-            --bg-primary: #f8f9fa;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #e9ecef;
-            --text-primary: #1a1d20;
-            --text-secondary: #495057;
-            --text-muted: #6c757d;
-            --border-color: #dee2e6;
-            --border-hover: #495057;
-            --accent-primary: #1a1d20;
-            --accent-hover: #343a40;
-            --status-bg: #d1fae5;
-            --status-text: #065f46;
+            /* Color Palette - Semantic tokens */
+            --color-neutral-0: #ffffff;
+            --color-neutral-50: #f8f9fa;
+            --color-neutral-100: #f1f3f5;
+            --color-neutral-200: #e9ecef;
+            --color-neutral-400: #dee2e6;
+            --color-neutral-500: #adb5bd;
+            --color-neutral-600: #6c757d;
+            --color-neutral-700: #495057;
+            --color-neutral-900: #1a1d20;
             
-            /* Typography */
-            --font-mono: 'JetBrains Mono', monospace;
+            /* Semantic colors */
+            --color-bg-primary: var(--color-neutral-50);
+            --color-bg-secondary: var(--color-neutral-0);
+            --color-bg-tertiary: var(--color-neutral-100);
+            --color-bg-interactive: var(--color-neutral-100);
             
-            /* Spacing */
-            --container-max: 1000px;
+            --color-text-primary: var(--color-neutral-900);
+            --color-text-secondary: var(--color-neutral-700);
+            --color-text-muted: var(--color-neutral-600);
+            
+            --color-border-default: var(--color-neutral-400);
+            --color-border-hover: var(--color-neutral-700);
+            
+            --color-accent-primary: var(--color-neutral-900);
+            --color-accent-hover: var(--color-neutral-700);
+            
+            --color-status-success: #d1fae5;
+            --color-status-success-text: #065f46;
+            --color-status-in-progress: #fef3c7;
+            --color-status-in-progress-text: #78350f;
+            --color-status-draft: #dbeafe;
+            --color-status-draft-text: #0c2340;
+            
+            /* Typography system */
+            --font-family-mono: 'JetBrains Mono', monospace;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 2.5rem;
+            
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            --line-height-tight: 1.2;
+            --line-height-normal: 1.6;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing scale (8px base) */
+            --spacing-0: 0;
             --spacing-xs: 0.5rem;
             --spacing-sm: 1rem;
             --spacing-md: 1.5rem;
             --spacing-lg: 2rem;
             --spacing-xl: 4rem;
             
-            /* Animation */
-            --transition-fast: 0.2s ease;
-            --transition-normal: 0.3s ease;
+            /* Layout */
+            --container-max-width: 1000px;
+            --container-padding: var(--spacing-lg);
+            --grid-gap: var(--spacing-md);
+            
+            /* Border radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* Shadows - Elevation system */
+            --shadow-none: none;
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            
+            /* Transitions - Performance optimized */
+            --duration-fast: 150ms;
+            --duration-normal: 300ms;
+            --duration-slow: 500ms;
+            --easing-easeout: cubic-bezier(0.2, 0, 0.38, 0.9);
+            --easing-easeio: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --transition-fast: var(--duration-fast) var(--easing-easeout);
+            --transition-normal: var(--duration-normal) var(--easing-easeout);
+            --transition-slow: var(--duration-slow) var(--easing-easeout);
+            
+            /* Viewport breakpoints */
+            --breakpoint-xs: 0;
+            --breakpoint-sm: 480px;
+            --breakpoint-md: 768px;
+            --breakpoint-lg: 1024px;
+            --breakpoint-xl: 1280px;
         }
         
         /* ===========================================
-           BASE STYLES
+           RESET & NORMALIZATION
            =========================================== */
         * {
             margin: 0;
@@ -54,73 +126,172 @@
             box-sizing: border-box;
         }
         
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+        
         html {
             scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
         
         body {
-            font-family: var(--font-mono);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: var(--font-family-mono);
+            background-color: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            line-height: var(--line-height-normal);
             padding: var(--spacing-xl) var(--spacing-lg);
+            
+            /* Performance: enable GPU acceleration */
+            will-change: auto;
         }
         
         /* ===========================================
-           LAYOUT
+           TYPOGRAPHY SYSTEM
+           =========================================== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: -0.02em;
+            line-height: var(--line-height-tight);
+        }
+        
+        h1 {
+            font-size: clamp(1.75rem, 4vw, var(--font-size-2xl));
+            font-weight: var(--font-weight-bold);
+        }
+        
+        h2 {
+            font-size: var(--font-size-xl);
+        }
+        
+        p {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        a {
+            color: inherit;
+        }
+        
+        /* ===========================================
+           LAYOUT & GRID SYSTEM
            =========================================== */
         .container {
-            max-width: var(--container-max);
+            max-width: var(--container-max-width);
             margin: 0 auto;
         }
         
         /* ===========================================
-           HEADER
+           HEADER COMPONENT
            =========================================== */
         header {
             margin-bottom: var(--spacing-xl);
             padding-bottom: var(--spacing-lg);
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--color-border-default);
+            animation: slideDown var(--transition-normal);
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
-            align-items: start;
+            align-items: flex-start;
+            gap: var(--spacing-lg);
             flex-wrap: wrap;
-            gap: var(--spacing-md);
+        }
+        
+        .header-title-section {
+            flex: 1 1 auto;
+            min-width: 300px;
         }
         
         h1 {
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            font-weight: 700;
             margin-bottom: var(--spacing-xs);
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
+            color: var(--color-text-primary);
         }
         
         .subtitle {
-            font-size: 1.125rem;
-            color: var(--text-muted);
-            font-weight: 400;
+            font-size: var(--font-size-lg);
+            color: var(--color-text-muted);
+            font-weight: var(--font-weight-regular);
+            max-width: 600px;
+            margin-bottom: 0;
         }
         
+        /* Navigation component */
         .header-links {
             display: flex;
             gap: var(--spacing-md);
             align-items: center;
+            flex-shrink: 0;
         }
         
         .header-links a {
-            color: var(--text-secondary);
+            color: var(--color-text-secondary);
             text-decoration: none;
-            font-size: 0.9375rem;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
             transition: color var(--transition-fast);
-            font-weight: 500;
+            position: relative;
+            outline-offset: 2px;
         }
         
         .header-links a:hover {
-            color: var(--text-primary);
+            color: var(--color-text-primary);
+        }
+        
+        .header-links a:focus-visible {
+            outline: 2px solid var(--color-accent-primary);
+        }
+        
+        .header-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent-primary);
+            transition: width var(--transition-fast);
+            will-change: width;
+        }
+        
+        .header-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Dark mode toggle button */
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--color-border-default);
+            border-radius: var(--radius-sm);
+            padding: 0.375rem 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-base);
+            transition: all var(--transition-fast);
+            color: var(--color-text-primary);
+            outline-offset: 2px;
+        }
+        
+        .theme-toggle:hover {
+            border-color: var(--color-border-hover);
+            background-color: var(--color-bg-interactive);
+        }
+        
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--color-accent-primary);
+        }
+        
+        .theme-toggle-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         /* ===========================================
@@ -133,58 +304,96 @@
         .intro {
             max-width: 700px;
             margin-bottom: var(--spacing-xl);
+            animation: fadeInUp var(--transition-normal) 0.2s backwards;
         }
         
         .intro p {
-            font-size: 1.0625rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
+            font-size: var(--font-size-lg);
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-relaxed);
         }
         
         /* ===========================================
-           PROJECT GRID
+           PROJECT GRID & CARDS (COMPONENT PATTERN)
            =========================================== */
         .projects-grid {
             display: grid;
-            gap: var(--spacing-md);
+            gap: var(--grid-gap);
+            grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            grid-auto-rows: 1fr; /* Equal height cards */
         }
         
         .project-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            background-color: var(--color-bg-secondary);
+            border: 1px solid var(--color-border-default);
+            border-radius: var(--radius-md);
             padding: var(--spacing-lg);
             transition: all var(--transition-normal);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            animation: fadeInUp var(--transition-normal) backwards;
+            
+            /* Performance: Use transform for smooth animations */
+            will-change: transform, box-shadow, border-color;
         }
+        
+        .project-card:nth-child(1) { animation-delay: 0.3s; }
+        .project-card:nth-child(2) { animation-delay: 0.4s; }
+        .project-card:nth-child(3) { animation-delay: 0.5s; }
+        .project-card:nth-child(4) { animation-delay: 0.6s; }
+        .project-card:nth-child(5) { animation-delay: 0.7s; }
         
         .project-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: var(--color-border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
         }
         
+        /* Project card header (sub-component) */
         .project-header {
             display: flex;
             justify-content: space-between;
-            align-items: start;
+            align-items: flex-start;
+            gap: var(--spacing-md);
             margin-bottom: var(--spacing-sm);
         }
         
         .project-card h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            flex: 1 1 auto;
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
         }
         
+        /* Status badge (variant component) */
         .project-status {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            background: var(--status-bg);
-            color: var(--status-text);
-            border-radius: 4px;
-            font-weight: 500;
+            font-size: var(--font-size-xs);
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
+        .status-complete {
+            background-color: var(--color-status-success);
+            color: var(--color-status-success-text);
+        }
+        
+        .status-in-progress {
+            background-color: var(--color-status-in-progress);
+            color: var(--color-status-in-progress-text);
+        }
+        
+        .status-draft {
+            background-color: var(--color-status-draft);
+            color: var(--color-status-draft-text);
+        }
+        
+        /* Tag component */
         .project-meta {
             display: flex;
             gap: var(--spacing-xs);
@@ -193,151 +402,195 @@
         }
         
         .tag {
-            font-size: 0.8125rem;
+            font-size: var(--font-size-xs);
             padding: 0.25rem 0.75rem;
-            background: var(--bg-tertiary);
-            color: var(--text-secondary);
-            border-radius: 4px;
+            background-color: var(--color-bg-interactive);
+            color: var(--color-text-secondary);
+            border-radius: var(--radius-sm);
+            font-weight: var(--font-weight-medium);
         }
         
+        /* Project description */
         .project-description {
-            color: var(--text-muted);
+            color: var(--color-text-muted);
             margin-bottom: var(--spacing-md);
-            line-height: 1.6;
+            line-height: var(--line-height-normal);
+            flex-grow: 1; /* Pushes footer to bottom */
+            font-size: var(--font-size-base);
         }
         
+        /* Stats component */
         .project-stats {
             display: flex;
             gap: var(--spacing-lg);
             padding: var(--spacing-sm);
-            background: var(--bg-primary);
-            border-radius: 4px;
+            background-color: var(--color-bg-primary);
+            border-radius: var(--radius-sm);
             margin-bottom: var(--spacing-md);
         }
         
         .stat {
-            flex: 1;
+            flex: 1 1 auto;
+            min-width: 0;
         }
         
         .stat-value {
             display: block;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text-primary);
         }
         
         .stat-label {
             display: block;
-            font-size: 0.75rem;
-            color: var(--text-muted);
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-top: 0.25rem;
+            font-weight: var(--font-weight-medium);
         }
         
+        /* CTA section */
         .project-links {
             display: flex;
             gap: var(--spacing-sm);
-        }
-        
-        .btn {
-            flex: 1;
-            padding: 0.625rem 1.25rem;
-            text-decoration: none;
-            text-align: center;
-            border-radius: 4px;
-            font-weight: 500;
-            font-size: 0.9375rem;
-            transition: all var(--transition-fast);
-            border: 1px solid;
-        }
-        
-        .btn-primary {
-            background: var(--accent-primary);
-            color: var(--bg-secondary);
-            border-color: var(--accent-primary);
-        }
-        
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            border-color: var(--accent-hover);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-secondary);
-            border-color: var(--border-color);
-        }
-        
-        .btn-secondary:hover {
-            color: var(--text-primary);
-            border-color: var(--border-hover);
+            margin-top: auto; /* Push to bottom */
         }
         
         /* ===========================================
-           FOOTER
+           BUTTON COMPONENT (POLYMORPHIC)
+           =========================================== */
+        .btn {
+            padding: 0.625rem 1.25rem;
+            text-decoration: none;
+            text-align: center;
+            border-radius: var(--radius-sm);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-sm);
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1 1 auto;
+            outline-offset: 2px;
+            
+            /* Performance: optimize for interaction */
+            will-change: background-color, border-color, transform, box-shadow;
+        }
+        
+        .btn:focus-visible {
+            outline: 2px solid var(--color-accent-primary);
+        }
+        
+        .btn-primary {
+            background-color: var(--color-accent-primary);
+            color: var(--color-bg-secondary);
+            border-color: var(--color-accent-primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--color-accent-hover);
+            border-color: var(--color-accent-hover);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-text-secondary);
+            border-color: var(--color-border-default);
+        }
+        
+        .btn-secondary:hover {
+            color: var(--color-text-primary);
+            border-color: var(--color-border-hover);
+            background-color: var(--color-bg-interactive);
+        }
+        
+        /* ===========================================
+           FOOTER COMPONENT
            =========================================== */
         footer {
             padding-top: var(--spacing-lg);
-            border-top: 2px solid var(--border-color);
+            border-top: 2px solid var(--color-border-default);
+            margin-top: var(--spacing-xl);
         }
         
         .footer-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: var(--spacing-lg);
             flex-wrap: wrap;
-            gap: var(--spacing-md);
         }
         
         .footer-content p {
-            color: var(--text-muted);
-            font-size: 0.9375rem;
+            color: var(--color-text-muted);
+            font-size: var(--font-size-sm);
+            margin-bottom: 0;
         }
         
         .footer-links {
             display: flex;
             gap: var(--spacing-md);
+            list-style: none;
         }
         
         .footer-links a {
-            color: var(--text-muted);
+            color: var(--color-text-muted);
             text-decoration: none;
-            font-size: 0.9375rem;
+            font-size: var(--font-size-sm);
             transition: color var(--transition-fast);
+            position: relative;
+            outline-offset: 2px;
         }
         
         .footer-links a:hover {
-            color: var(--text-primary);
+            color: var(--color-text-primary);
+        }
+        
+        .footer-links a:focus-visible {
+            outline: 2px solid var(--color-accent-primary);
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--color-accent-primary);
+            transition: width var(--transition-fast);
+            will-change: width;
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
         }
         
         /* ===========================================
-           RESPONSIVE
+           ANIMATIONS (GPU-ACCELERATED)
            =========================================== */
-        @media (max-width: 768px) {
-            body {
-                padding: var(--spacing-lg) var(--spacing-sm);
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
             }
-            
-            .project-stats {
-                flex-direction: column;
-                gap: var(--spacing-sm);
-            }
-            
-            .project-links {
-                flex-direction: column;
-            }
-            
-            .header-content,
-            .footer-content {
-                flex-direction: column;
-                align-items: flex-start;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
         
-        /* ===========================================
-           ANIMATIONS
-           =========================================== */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -349,203 +602,430 @@
             }
         }
         
-        .project-card {
-            animation: fadeInUp 0.6s ease backwards;
+        /* Reduce motion support for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
         
-        .project-card:nth-child(1) { animation-delay: 0.1s; }
-        .project-card:nth-child(2) { animation-delay: 0.2s; }
-        .project-card:nth-child(3) { animation-delay: 0.3s; }
-        .project-card:nth-child(4) { animation-delay: 0.4s; }
-        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        /* ===========================================
+           RESPONSIVE DESIGN (MOBILE-FIRST)
+           =========================================== */
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: var(--spacing-lg) var(--spacing-sm);
+            }
+            
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-md);
+            }
+            
+            .header-links {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
+            }
+            
+            .project-stats {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+            
+            .project-links {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-md);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: var(--spacing-lg) var(--spacing-xs);
+            }
+            
+            .projects-grid {
+                gap: var(--spacing-xs);
+            }
+            
+            .project-card {
+                padding: var(--spacing-md);
+            }
+            
+            .project-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-sm);
+            }
+            
+            h1 {
+                font-size: 1.75rem;
+            }
+            
+            .project-stats {
+                padding: var(--spacing-sm);
+                gap: var(--spacing-sm);
+            }
+            
+            .stat-value {
+                font-size: var(--font-size-lg);
+            }
+        }
+        
+        /* ===========================================
+           DARK MODE SUPPORT (FUTURE-PROOFING)
+           =========================================== */
+        html[data-theme="dark"],
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-bg-primary: #0f1419;
+                --color-bg-secondary: #1a1f28;
+                --color-bg-interactive: #262d38;
+                
+                --color-text-primary: #f5f7fa;
+                --color-text-secondary: #c8d1dc;
+                --color-text-muted: #8b95a5;
+                
+                --color-border-default: #2f3a48;
+                --color-border-hover: #c8d1dc;
+            }
+        }
+        
+        /* Explicit dark mode */
+        html[data-theme="dark"] {
+            --color-bg-primary: #0f1419;
+            --color-bg-secondary: #1a1f28;
+            --color-bg-interactive: #262d38;
+            
+            --color-text-primary: #f5f7fa;
+            --color-text-secondary: #c8d1dc;
+            --color-text-muted: #8b95a5;
+            
+            --color-border-default: #2f3a48;
+            --color-border-hover: #c8d1dc;
+        }
+        
+        /* Light mode override */
+        html[data-theme="light"] {
+            --color-bg-primary: var(--color-neutral-50);
+            --color-bg-secondary: var(--color-neutral-0);
+            --color-bg-interactive: var(--color-neutral-100);
+            
+            --color-text-primary: var(--color-neutral-900);
+            --color-text-secondary: var(--color-neutral-700);
+            --color-text-muted: var(--color-neutral-600);
+            
+            --color-border-default: var(--color-neutral-400);
+            --color-border-hover: var(--color-neutral-700);
+        }
+        
+        /* ===========================================
+           PRINT STYLES
+           =========================================== */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            header, footer {
+                display: none;
+            }
+            
+            .project-card {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+                box-shadow: none;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <header role="banner">
             <div class="header-content">
-                <div>
+                <div class="header-title-section">
                     <h1>Product Teardowns & Strategy Studies</h1>
                     <p class="subtitle">Deep-dive analyses and execution plans for government technology products</p>
                 </div>
-                <nav class="header-links">
-                    <a href="https://github.com/mandlcho/product-case-studies" target="_blank">GitHub</a>
-                    <a href="https://linkedin.com/in/mandlcho" target="_blank">LinkedIn</a>
+                <nav class="header-links" aria-label="External links and theme">
+                    <a href="https://github.com/mandlcho/product-case-studies" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://linkedin.com/in/mandlcho" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon" id="theme-icon">🌙</span>
+                    </button>
                 </nav>
             </div>
         </header>
         
         <main>
-            <div class="intro">
+            <section class="intro" aria-labelledby="intro-heading">
+                <h2 id="intro-heading" style="display: none;">Introduction</h2>
                 <p>Strategic product analyses with user research, data-driven insights, and actionable 30/60/90 day roadmaps. Each teardown demonstrates product thinking, execution planning, and user empathy.</p>
-            </div>
+            </section>
             
-            <div class="projects-grid">
-                <!-- Pair Chat Project -->
-                <article class="project-card">
-                    <div class="project-header">
-                        <h2>Pair Chat</h2>
-                        <span class="project-status">Complete</span>
-                    </div>
-                    
-                    <div class="project-meta">
-                        <span class="tag">Gov Tech</span>
-                        <span class="tag">AI Assistant</span>
-                        <span class="tag">Singapore</span>
-                    </div>
-                    
-                    <p class="project-description">
-                        Singapore's government AI assistant with 78K MAU. Analysis of 47% activation gap and strategic plan to unlock $8.7M in untapped monthly productivity value.
-                    </p>
-                    
-                    <div class="project-stats">
-                        <div class="stat">
-                            <span class="stat-value">78.5K</span>
-                            <span class="stat-label">MAU</span>
+            <section class="projects" aria-labelledby="projects-heading">
+                <h2 id="projects-heading" style="display: none;">Projects</h2>
+                <div class="projects-grid">
+                    <!-- Pair Chat Project -->
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h2>Pair Chat</h2>
+                            <span class="project-status status-complete">Complete</span>
                         </div>
-                        <div class="stat">
-                            <span class="stat-value">47%</span>
-                            <span class="stat-label">Activation Gap</span>
+                        
+                        <div class="project-meta">
+                            <span class="tag">Gov Tech</span>
+                            <span class="tag">AI Assistant</span>
+                            <span class="tag">Singapore</span>
                         </div>
-                        <div class="stat">
-                            <span class="stat-value">20K+</span>
-                            <span class="stat-label">User AIBots</span>
+                        
+                        <p class="project-description">
+                            Singapore's government AI assistant with 78K MAU. Analysis of 47% activation gap and strategic plan to unlock $8.7M in untapped monthly productivity value.
+                        </p>
+                        
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-value">78.5K</span>
+                                <span class="stat-label">MAU</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">47%</span>
+                                <span class="stat-label">Activation Gap</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">20K+</span>
+                                <span class="stat-label">User AIBots</span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="project-links">
-                        <a href="projects/pair-chat/presentation.html" class="btn btn-primary">View Presentation</a>
-                    </div>
-                </article>
-                
-                <!-- RedeemSG: Trust Crisis Project -->
-                <article class="project-card">
-                    <div class="project-header">
-                        <h2>RedeemSG: Trust Crisis</h2>
-                        <span class="project-status">Complete</span>
-                    </div>
-                    
-                    <div class="project-meta">
-                        <span class="tag">Gov Tech</span>
-                        <span class="tag">Consumer</span>
-                        <span class="tag">Singapore</span>
-                    </div>
-                    
-                    <p class="project-description">
-                        National voucher platform trust crisis analysis. Deep dive into Jan 2025 phishing attack, consumer vs merchant experience gap (3.1/5 vs 4.2/5), and 30/60/90 day trust recovery plan.
-                    </p>
-                    
-                    <div class="project-stats">
-                        <div class="stat">
-                            <span class="stat-value">$1.97B</span>
-                            <span class="stat-label">Processed</span>
+                        
+                        <div class="project-links">
+                            <a href="projects/pair-chat/presentation.html" class="btn btn-primary">View Presentation</a>
                         </div>
-                        <div class="stat">
-                            <span class="stat-value">3.1/5</span>
-                            <span class="stat-label">Consumer Rating</span>
+                    </article>
+                    
+                    <!-- RedeemSG: Trust Crisis Project -->
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h2>RedeemSG: Trust Crisis</h2>
+                            <span class="project-status status-complete">Complete</span>
                         </div>
-                        <div class="stat">
-                            <span class="stat-value">4.2/5</span>
-                            <span class="stat-label">Merchant Rating</span>
+                        
+                        <div class="project-meta">
+                            <span class="tag">Gov Tech</span>
+                            <span class="tag">Consumer</span>
+                            <span class="tag">Singapore</span>
                         </div>
-                    </div>
+                        
+                        <p class="project-description">
+                            National voucher platform trust crisis analysis. Deep dive into Jan 2025 phishing attack, consumer vs merchant experience gap (3.1/5 vs 4.2/5), and 30/60/90 day trust recovery plan.
+                        </p>
+                        
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-value">$1.97B</span>
+                                <span class="stat-label">Processed</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">3.1/5</span>
+                                <span class="stat-label">Consumer Rating</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">4.2/5</span>
+                                <span class="stat-label">Merchant Rating</span>
+                            </div>
+                        </div>
+                        
+                        <div class="project-links">
+                            <a href="projects/redeemsg/presentation.html" class="btn btn-primary">View Presentation</a>
+                        </div>
+                    </article>
                     
-                    <div class="project-links">
-                        <a href="projects/redeemsg/presentation.html" class="btn btn-primary">View Presentation</a>
-                    </div>
-                </article>
-                
-                <!-- Pair Search Project -->
-                <article class="project-card">
-                    <div class="project-header">
-                        <h2>Pair Search</h2>
-                        <span class="project-status">Complete</span>
-                    </div>
-                    
-                    <div class="project-meta">
-                        <span class="tag">Gov Tech</span>
-                        <span class="tag">Search</span>
-                        <span class="tag">Singapore</span>
-                    </div>
-                    
-                    <p class="project-description">
-                        Legislative research tool for Singapore government officers. Analysis of search patterns, user needs, and opportunities for improvement.
-                    </p>
-                    
-                    <div class="project-links">
-                    </div>
-                </article>
+                    <!-- Pair Search Project -->
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h2>Pair Search</h2>
+                            <span class="project-status status-complete">Complete</span>
+                        </div>
+                        
+                        <div class="project-meta">
+                            <span class="tag">Gov Tech</span>
+                            <span class="tag">Search</span>
+                            <span class="tag">Singapore</span>
+                        </div>
+                        
+                        <p class="project-description">
+                            Legislative research tool for Singapore government officers. Analysis of search patterns, user needs, and opportunities for improvement.
+                        </p>
+                        
+                        <div class="project-links">
+                        </div>
+                    </article>
 
-                <!-- GovTech Equivalents Comparative -->
-                <article class="project-card">
-                    <div class="project-header">
-                        <h2>GovTech Equivalents</h2>
-                        <span class="project-status">Complete</span>
-                    </div>
-
-                    <div class="project-meta">
-                        <span class="tag">Gov Tech</span>
-                        <span class="tag">Comparative</span>
-                        <span class="tag">Global</span>
-                    </div>
-
-                    <p class="project-description">
-                        Comparative landscape of five tier-1 digital government agencies with interview-ready themes and lessons for OGP's portfolio strategy.
-                    </p>
-
-                    <div class="project-stats">
-                        <div class="stat">
-                            <span class="stat-value">5</span>
-                            <span class="stat-label">Countries</span>
+                    <!-- GovTech Equivalents Comparative -->
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h2>GovTech Equivalents</h2>
+                            <span class="project-status status-complete">Complete</span>
                         </div>
-                        <div class="stat">
-                            <span class="stat-value">5</span>
-                            <span class="stat-label">Themes</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value">Top 3</span>
-                            <span class="stat-label">OGP Rank</span>
-                        </div>
-                    </div>
 
-                    <div class="project-links">
-                        <a href="projects/govtech-comparatives/presentation.html" class="btn btn-primary">View Presentation</a>
-                    </div>
-                </article>
-                
-                <!-- RedeemSG Voucher Quick Access -->
-                <article class="project-card">
-                    <div class="project-header">
-                        <h2>RedeemSG: Voucher Quick Access</h2>
-                        <span class="project-status">Complete</span>
-                    </div>
+                        <div class="project-meta">
+                            <span class="tag">Gov Tech</span>
+                            <span class="tag">Comparative</span>
+                            <span class="tag">Global</span>
+                        </div>
+
+                        <p class="project-description">
+                            Comparative landscape of five tier-1 digital government agencies with interview-ready themes and lessons for OGP's portfolio strategy.
+                        </p>
+
+                        <div class="project-stats">
+                            <div class="stat">
+                                <span class="stat-value">5</span>
+                                <span class="stat-label">Countries</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">5</span>
+                                <span class="stat-label">Themes</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">Top 3</span>
+                                <span class="stat-label">OGP Rank</span>
+                            </div>
+                        </div>
+
+                        <div class="project-links">
+                            <a href="projects/govtech-comparatives/presentation.html" class="btn btn-primary">View Presentation</a>
+                        </div>
+                    </article>
                     
-                    <div class="project-meta">
-                        <span class="tag">Gov Tech</span>
-                        <span class="tag">Consumer</span>
-                        <span class="tag">Singapore</span>
-                    </div>
-                    
-                    <p class="project-description">
-                        One-page PM pitch for improving voucher redemption UX. Strategic analysis of user friction points and proposed solutions.
-                    </p>
-                    
-                    <div class="project-links">
-                    </div>
-                </article>
-            </div>
+                    <!-- RedeemSG Voucher Quick Access -->
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h2>RedeemSG: Voucher Quick Access</h2>
+                            <span class="project-status status-complete">Complete</span>
+                        </div>
+                        
+                        <div class="project-meta">
+                            <span class="tag">Gov Tech</span>
+                            <span class="tag">Consumer</span>
+                            <span class="tag">Singapore</span>
+                        </div>
+                        
+                        <p class="project-description">
+                            One-page PM pitch for improving voucher redemption UX. Strategic analysis of user friction points and proposed solutions.
+                        </p>
+                        
+                        <div class="project-links">
+                        </div>
+                    </article>
+                </div>
+            </section>
         </main>
         
-        <footer>
+        <footer role="contentinfo">
             <div class="footer-content">
                 <p>&copy; 2026 Mandl Cho. All teardowns and analyses.</p>
-                <nav class="footer-links">
+                <nav class="footer-links" aria-label="Footer navigation">
                     <a href="README.md">About</a>
                     <a href="tracker.md">Tracker</a>
-                     <a href="https://github.com/mandlcho/product-case-studies" target="_blank">Source</a>
+                    <a href="https://github.com/mandlcho/product-case-studies" target="_blank" rel="noopener noreferrer">Source</a>
                 </nav>
             </div>
         </footer>
     </div>
+    
+    <script>
+        /**
+         * Theme Manager
+         * Handles dark/light mode toggling with localStorage persistence
+         */
+        const ThemeManager = (() => {
+            const STORAGE_KEY = 'theme-preference';
+            const LIGHT_THEME = 'light';
+            const DARK_THEME = 'dark';
+            
+            // Get current theme from storage or system preference
+            const getTheme = () => {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) return stored;
+                
+                // Check system preference
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    return DARK_THEME;
+                }
+                return LIGHT_THEME;
+            };
+            
+            // Set theme and persist
+            const setTheme = (theme) => {
+                const html = document.documentElement;
+                html.setAttribute('data-theme', theme);
+                localStorage.setItem(STORAGE_KEY, theme);
+                updateToggleIcon(theme);
+            };
+            
+            // Update toggle button icon
+            const updateToggleIcon = (theme) => {
+                const icon = document.getElementById('theme-icon');
+                if (icon) {
+                    icon.textContent = theme === DARK_THEME ? '☀️' : '🌙';
+                }
+            };
+            
+            // Toggle between light and dark
+            const toggle = () => {
+                const current = localStorage.getItem(STORAGE_KEY) || getTheme();
+                const next = current === LIGHT_THEME ? DARK_THEME : LIGHT_THEME;
+                setTheme(next);
+            };
+            
+            // Initialize
+            const init = () => {
+                const theme = getTheme();
+                setTheme(theme);
+                
+                // Listen for system preference changes
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (!localStorage.getItem(STORAGE_KEY)) {
+                        setTheme(e.matches ? DARK_THEME : LIGHT_THEME);
+                    }
+                });
+                
+                // Attach toggle listener
+                const toggle_btn = document.getElementById('theme-toggle');
+                if (toggle_btn) {
+                    toggle_btn.addEventListener('click', toggle);
+                }
+            };
+            
+            return { init, setTheme, getTheme, toggle };
+        })();
+        
+        // Initialize on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', ThemeManager.init);
+        } else {
+            ThemeManager.init();
+        }
+    </script>
 </body>
 </html>
