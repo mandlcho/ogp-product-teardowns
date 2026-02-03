@@ -528,11 +528,12 @@
          
          .floating-nav-link {
              display: flex;
+             flex-direction: column;
              align-items: center;
              justify-content: center;
-             width: 36px;
-             height: 36px;
-             border-radius: 50%;
+             gap: 4px;
+             padding: var(--spacing-xs) var(--spacing-sm);
+             border-radius: 8px;
              font-size: var(--font-size-xs);
              font-weight: var(--font-weight-semibold);
              color: var(--color-text-secondary);
@@ -540,34 +541,25 @@
              border: 1px solid var(--color-border-default);
              transition: all var(--transition-fast);
              position: relative;
+             text-align: center;
+         }
+         
+         .nav-icon {
+             font-size: 18px;
+             display: block;
+         }
+         
+         .nav-label {
+             font-size: 10px;
+             display: block;
+             line-height: 1;
          }
          
          .floating-nav-link:hover {
              background: var(--color-accent-primary);
              color: white;
              border-color: var(--color-accent-primary);
-             transform: scale(1.1);
-         }
-         
-         .floating-nav-link::after {
-             content: attr(data-label);
-             position: absolute;
-             bottom: 110%;
-             left: 50%;
-             transform: translateX(-50%);
-             background: var(--color-accent-primary);
-             color: white;
-             padding: var(--spacing-xs) var(--spacing-sm);
-             border-radius: var(--radius-sm);
-             font-size: var(--font-size-xs);
-             white-space: nowrap;
-             opacity: 0;
-             pointer-events: none;
-             transition: opacity var(--transition-fast);
-         }
-         
-         .floating-nav-link:hover::after {
-             opacity: 1;
+             transform: scale(1.05);
          }
          
          /* ===========================================
@@ -575,41 +567,50 @@
             =========================================== */
          @media (max-width: 768px) {
              .floating-nav-content {
-                 padding: var(--spacing-xs) var(--spacing-sm);
-                 gap: var(--spacing-xs);
+                 padding: 8px 12px;
+                 gap: 6px;
              }
              
              .floating-nav-link {
-                 width: 32px;
-                 height: 32px;
-                 font-size: 14px;
+                 padding: 6px 8px;
              }
              
-             .floating-nav-link::after {
-                 font-size: 10px;
-                 padding: 4px 6px;
-                 bottom: 105%;
+             .nav-icon {
+                 font-size: 16px;
+             }
+             
+             .nav-label {
+                 font-size: 9px;
              }
          }
          
          @media (max-width: 480px) {
              .floating-nav {
                  bottom: var(--spacing-md);
+                 left: var(--spacing-lg);
+                 right: var(--spacing-lg);
+                 transform: none;
+                 width: auto;
              }
              
              .floating-nav-content {
-                 padding: 6px 8px;
+                 padding: 8px 10px;
                  gap: 4px;
+                 justify-content: center;
+                 flex-wrap: wrap;
              }
              
              .floating-nav-link {
-                 width: 28px;
-                 height: 28px;
-                 font-size: 12px;
+                 padding: 6px 8px;
+                 min-width: 50px;
              }
              
-             .floating-nav-link::after {
-                 display: none;
+             .nav-icon {
+                 font-size: 14px;
+             }
+             
+             .nav-label {
+                 font-size: 8px;
              }
          }
          
@@ -1150,12 +1151,30 @@
      <!-- Floating Bottom Navigation -->
      <nav id="floating-nav" class="floating-nav" style="display: none;">
          <div class="floating-nav-content">
-             <a href="#problem" class="floating-nav-link" data-label="Problem" data-icon="🎯">1</a>
-             <a href="#solution" class="floating-nav-link" data-label="Solution" data-icon="💡">2</a>
-             <a href="#adoption" class="floating-nav-link" data-label="Gap" data-icon="📊">3</a>
-             <a href="#solutions" class="floating-nav-link" data-label="Recommendations" data-icon="🎨">4</a>
-             <a href="#tools" class="floating-nav-link" data-label="AI Agents" data-icon="🤖">5</a>
-             <a href="#roadmap" class="floating-nav-link" data-label="Roadmap" data-icon="🗺️">6</a>
+             <a href="#problem" class="floating-nav-link" title="Problem">
+                 <span class="nav-icon">🎯</span>
+                 <span class="nav-label">Problem</span>
+             </a>
+             <a href="#solution" class="floating-nav-link" title="Solution">
+                 <span class="nav-icon">💡</span>
+                 <span class="nav-label">Solution</span>
+             </a>
+             <a href="#adoption" class="floating-nav-link" title="Gap">
+                 <span class="nav-icon">📊</span>
+                 <span class="nav-label">Gap</span>
+             </a>
+             <a href="#solutions" class="floating-nav-link" title="Recommendations">
+                 <span class="nav-icon">🎨</span>
+                 <span class="nav-label">Recs</span>
+             </a>
+             <a href="#tools" class="floating-nav-link" title="AI Agents">
+                 <span class="nav-icon">🤖</span>
+                 <span class="nav-label">Agents</span>
+             </a>
+             <a href="#roadmap" class="floating-nav-link" title="Roadmap">
+                 <span class="nav-icon">🗺️</span>
+                 <span class="nav-label">Road</span>
+             </a>
          </div>
      </nav>
      
