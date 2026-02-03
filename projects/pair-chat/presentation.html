@@ -499,6 +499,121 @@
          }
          
          /* ===========================================
+            FLOATING NAVIGATION
+            =========================================== */
+         .floating-nav {
+             position: fixed;
+             bottom: var(--spacing-lg);
+             left: 50%;
+             transform: translateX(-50%);
+             z-index: 99;
+             opacity: 0;
+             transition: opacity var(--transition-normal);
+         }
+         
+         .floating-nav.visible {
+             opacity: 1;
+         }
+         
+         .floating-nav-content {
+             display: flex;
+             gap: var(--spacing-sm);
+             background: var(--color-bg-secondary);
+             border: 1px solid var(--color-border-default);
+             border-radius: 50px;
+             padding: var(--spacing-sm) var(--spacing-md);
+             box-shadow: var(--shadow-lg);
+             backdrop-filter: blur(10px);
+         }
+         
+         .floating-nav-link {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             width: 36px;
+             height: 36px;
+             border-radius: 50%;
+             font-size: var(--font-size-xs);
+             font-weight: var(--font-weight-semibold);
+             color: var(--color-text-secondary);
+             background: var(--color-bg-tertiary);
+             border: 1px solid var(--color-border-default);
+             transition: all var(--transition-fast);
+             position: relative;
+         }
+         
+         .floating-nav-link:hover {
+             background: var(--color-accent-primary);
+             color: white;
+             border-color: var(--color-accent-primary);
+             transform: scale(1.1);
+         }
+         
+         .floating-nav-link::after {
+             content: attr(data-label);
+             position: absolute;
+             bottom: 110%;
+             left: 50%;
+             transform: translateX(-50%);
+             background: var(--color-accent-primary);
+             color: white;
+             padding: var(--spacing-xs) var(--spacing-sm);
+             border-radius: var(--radius-sm);
+             font-size: var(--font-size-xs);
+             white-space: nowrap;
+             opacity: 0;
+             pointer-events: none;
+             transition: opacity var(--transition-fast);
+         }
+         
+         .floating-nav-link:hover::after {
+             opacity: 1;
+         }
+         
+         /* ===========================================
+            RESPONSIVE FLOATING NAV
+            =========================================== */
+         @media (max-width: 768px) {
+             .floating-nav-content {
+                 padding: var(--spacing-xs) var(--spacing-sm);
+                 gap: var(--spacing-xs);
+             }
+             
+             .floating-nav-link {
+                 width: 32px;
+                 height: 32px;
+                 font-size: 14px;
+             }
+             
+             .floating-nav-link::after {
+                 font-size: 10px;
+                 padding: 4px 6px;
+                 bottom: 105%;
+             }
+         }
+         
+         @media (max-width: 480px) {
+             .floating-nav {
+                 bottom: var(--spacing-md);
+             }
+             
+             .floating-nav-content {
+                 padding: 6px 8px;
+                 gap: 4px;
+             }
+             
+             .floating-nav-link {
+                 width: 28px;
+                 height: 28px;
+                 font-size: 12px;
+             }
+             
+             .floating-nav-link::after {
+                 display: none;
+             }
+         }
+         
+         /* ===========================================
             RESPONSIVE
             =========================================== */
         @media (max-width: 768px) {
@@ -1031,8 +1146,20 @@
              </div>
          </section>
      </main>
-    
-    <script>
+
+     <!-- Floating Bottom Navigation -->
+     <nav id="floating-nav" class="floating-nav" style="display: none;">
+         <div class="floating-nav-content">
+             <a href="#problem" class="floating-nav-link" data-label="Problem" data-icon="🎯">1</a>
+             <a href="#solution" class="floating-nav-link" data-label="Solution" data-icon="💡">2</a>
+             <a href="#adoption" class="floating-nav-link" data-label="Gap" data-icon="📊">3</a>
+             <a href="#solutions" class="floating-nav-link" data-label="Recommendations" data-icon="🎨">4</a>
+             <a href="#tools" class="floating-nav-link" data-label="AI Agents" data-icon="🤖">5</a>
+             <a href="#roadmap" class="floating-nav-link" data-label="Roadmap" data-icon="🗺️">6</a>
+         </div>
+     </nav>
+     
+     <script>
         // Theme Toggle
         const ThemeManager = (() => {
             const STORAGE_KEY = 'pair-teardown-theme';
@@ -1088,12 +1215,49 @@
             return { init };
         })();
         
-        // Initialize
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', ThemeManager.init);
-        } else {
-            ThemeManager.init();
-        }
+         // Floating Navigation Manager
+         const FloatingNav = (() => {
+             const floatingNav = document.getElementById('floating-nav');
+             const heroSection = document.querySelector('.hero');
+             
+             if (!floatingNav) return;
+             
+             const init = () => {
+                 window.addEventListener('scroll', toggleFloatingNav);
+             };
+             
+             const toggleFloatingNav = () => {
+                 if (!heroSection) return;
+                 
+                 const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                 const scrollTop = window.scrollY;
+                 
+                 if (scrollTop > heroBottom) {
+                     floatingNav.classList.add('visible');
+                     floatingNav.style.display = 'block';
+                 } else {
+                     floatingNav.classList.remove('visible');
+                     setTimeout(() => {
+                         if (!floatingNav.classList.contains('visible')) {
+                             floatingNav.style.display = 'none';
+                         }
+                     }, 300);
+                 }
+             };
+             
+             return { init };
+         })();
+         
+         // Initialize
+         if (document.readyState === 'loading') {
+             document.addEventListener('DOMContentLoaded', () => {
+                 ThemeManager.init();
+                 FloatingNav.init();
+             });
+         } else {
+             ThemeManager.init();
+             FloatingNav.init();
+         }
         
 
     </script>
