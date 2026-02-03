@@ -563,7 +563,76 @@
          }
          
          /* ===========================================
-            RESPONSIVE FLOATING NAV
+            PLATFORM-SPECIFIC FLOATING NAV
+            =========================================== */
+         /* Mobile - Icons only, compact */
+         html[data-platform="mobile"] .floating-nav-content {
+             padding: 10px 12px;
+             gap: 6px;
+             max-width: 100%;
+         }
+         
+         html[data-platform="mobile"] .floating-nav-link {
+             flex-direction: column;
+             gap: 2px;
+             padding: 8px 10px;
+             min-width: 48px;
+         }
+         
+         html[data-platform="mobile"] .nav-icon {
+             font-size: 18px;
+         }
+         
+         html[data-platform="mobile"] .nav-label {
+             font-size: 8px;
+             font-weight: var(--font-weight-semibold);
+         }
+         
+         /* Tablet - Icon + Label horizontal */
+         html[data-platform="tablet"] .floating-nav-content {
+             padding: 10px 14px;
+             gap: 8px;
+         }
+         
+         html[data-platform="tablet"] .floating-nav-link {
+             flex-direction: row;
+             gap: 4px;
+             padding: 8px 12px;
+             min-width: auto;
+         }
+         
+         html[data-platform="tablet"] .nav-icon {
+             font-size: 16px;
+         }
+         
+         html[data-platform="tablet"] .nav-label {
+             font-size: 10px;
+         }
+         
+         /* Desktop - Full labels with hover tooltips */
+         html[data-platform="desktop"] .floating-nav-content {
+             padding: var(--spacing-sm) var(--spacing-md);
+             gap: var(--spacing-sm);
+         }
+         
+         html[data-platform="desktop"] .floating-nav-link {
+             flex-direction: column;
+             gap: 4px;
+             padding: 8px 12px;
+             min-width: auto;
+         }
+         
+         html[data-platform="desktop"] .nav-icon {
+             font-size: 20px;
+         }
+         
+         html[data-platform="desktop"] .nav-label {
+             font-size: 11px;
+             font-weight: var(--font-weight-semibold);
+         }
+         
+         /* ===========================================
+            RESPONSIVE FALLBACK (Media Queries)
             =========================================== */
          @media (max-width: 768px) {
              .floating-nav-content {
@@ -1236,6 +1305,32 @@
             return { init };
         })();
         
+         // Platform Detection & Floating Navigation Manager
+         const PlatformDetection = (() => {
+             const detectPlatform = () => {
+                 const ua = navigator.userAgent || '';
+                 const isMobile = /iPhone|iPad|iPod|Android|Windows Phone|webOS|BlackBerry|Opera Mini/i.test(ua);
+                 const isTablet = /iPad|Android(?!.*Mobile)/.test(ua);
+                 const isDesktop = !isMobile;
+                 
+                 return {
+                     isMobile: isMobile && !isTablet,
+                     isTablet: isTablet,
+                     isDesktop: isDesktop,
+                     name: isTablet ? 'tablet' : isMobile ? 'mobile' : 'desktop'
+                 };
+             };
+             
+             const init = () => {
+                 const platform = detectPlatform();
+                 document.documentElement.setAttribute('data-platform', platform.name);
+             };
+             
+             return { init };
+         })();
+         
+         PlatformDetection.init();
+         
          // Floating Navigation Manager
          const FloatingNav = (() => {
              const floatingNav = document.getElementById('floating-nav');
@@ -1255,7 +1350,7 @@
                  
                  if (scrollTop > heroBottom) {
                      floatingNav.classList.add('visible');
-                     floatingNav.style.display = 'block';
+                     floatingNav.style.display = 'flex';
                  } else {
                      floatingNav.classList.remove('visible');
                      setTimeout(() => {
