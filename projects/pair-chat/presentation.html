@@ -294,6 +294,36 @@
             line-height: var(--line-height-relaxed);
         }
         
+        .hero-nav {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--color-border-default);
+        }
+        
+        .hero-nav p {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-muted);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .hero-nav-links {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+        
+        .hero-nav-link {
+            font-size: var(--font-size-xs);
+            color: var(--color-text-secondary);
+            text-decoration: underline;
+            transition: color var(--transition-fast);
+            cursor: pointer;
+        }
+        
+        .hero-nav-link:hover {
+            color: var(--color-accent-primary);
+        }
+        
         .cta-button {
             display: inline-block;
             padding: var(--spacing-md) var(--spacing-lg);
@@ -518,13 +548,17 @@
                     <p class="hero-subtitle">
                         Singapore built an AI assistant for government work that's secure, free, and actually adopted at scale. Here's the strategic analysis of what works—and what's next to unlock the remaining 81,500 officers.
                     </p>
-                    <div style="display: flex; gap: 1rem; margin-top: var(--spacing-lg); flex-wrap: wrap;">
-                        <button class="cta-button" onclick="document.getElementById('problem').scrollIntoView({behavior: 'smooth'})">
-                            View Teardown
-                        </button>
-                        <a href="#impact" class="cta-button secondary">
-                            See the Impact
-                        </a>
+                    <button class="cta-button" onclick="document.getElementById('problem').scrollIntoView({behavior: 'smooth'})" style="margin-top: var(--spacing-lg);">
+                        Dive Into the Analysis
+                    </button>
+                    
+                    <div class="hero-nav">
+                        <p>Quick sections:</p>
+                        <div class="hero-nav-links">
+                            <a href="#problem" class="hero-nav-link">Problem</a>
+                            <a href="#solution" class="hero-nav-link">Solution</a>
+                            <a href="#impact" class="hero-nav-link">Impact</a>
+                        </div>
                     </div>
                 </div>
             </div>
