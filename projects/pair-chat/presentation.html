@@ -1483,24 +1483,25 @@
                  highlightActiveSection();
              };
              
-             const toggleFloatingNav = () => {
-                 if (!heroSection) return;
-                 
-                 const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-                 const scrollTop = window.scrollY;
-                 
-                 if (scrollTop > heroBottom) {
-                     floatingNav.classList.add('visible');
-                     floatingNav.style.display = 'flex';
-                 } else {
-                     floatingNav.classList.remove('visible');
-                     setTimeout(() => {
-                         if (!floatingNav.classList.contains('visible')) {
-                             floatingNav.style.display = 'none';
-                         }
-                     }, 300);
-                 }
-             };
+              const toggleFloatingNav = () => {
+                  if (!heroSection) return;
+                  
+                  const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                  const scrollTop = window.scrollY;
+                  const showThreshold = heroBottom * 0.6; // Show nav at 60% through hero section
+                  
+                  if (scrollTop > showThreshold) {
+                      floatingNav.classList.add('visible');
+                      floatingNav.style.display = 'flex';
+                  } else {
+                      floatingNav.classList.remove('visible');
+                      setTimeout(() => {
+                          if (!floatingNav.classList.contains('visible')) {
+                              floatingNav.style.display = 'none';
+                          }
+                      }, 300);
+                  }
+              };
              
                const highlightActiveSection = () => {
                   let currentSection = null;
