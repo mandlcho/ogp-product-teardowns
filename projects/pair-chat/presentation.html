@@ -322,6 +322,12 @@
         
         .cta-button.secondary:hover {
             background: var(--color-bg-interactive);
+            color: var(--color-accent-hover);
+            border-color: var(--color-accent-hover);
+        }
+        
+        .cta-button.secondary:active {
+            transform: translateY(1px);
         }
         
         /* ===========================================
@@ -508,13 +514,18 @@
             <div class="container">
                 <div class="hero-content">
                     <p class="eyebrow">Product Teardown</p>
-                    <h1>How AI Changed Government Work</h1>
+                    <h1>Why 78,500 Officers Choose Pair Chat Over ChatGPT</h1>
                     <p class="hero-subtitle">
-                        Meet Pair Chat: A secure AI assistant that helped Singapore's government work smarter, not harder. Here's how 78,500+ public officers are saving 59 minutes per task.
+                        Singapore built an AI assistant for government work that's secure, free, and actually adopted at scale. Here's the strategic analysis of what works—and what's next to unlock the remaining 81,500 officers.
                     </p>
-                    <button class="cta-button" onclick="document.getElementById('problem').scrollIntoView({behavior: 'smooth'})">
-                        Explore the Story
-                    </button>
+                    <div style="display: flex; gap: 1rem; margin-top: var(--spacing-lg); flex-wrap: wrap;">
+                        <button class="cta-button" onclick="document.getElementById('problem').scrollIntoView({behavior: 'smooth'})">
+                            View Teardown
+                        </button>
+                        <a href="#impact" class="cta-button secondary">
+                            See the Impact
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
