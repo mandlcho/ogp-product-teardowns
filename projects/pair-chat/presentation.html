@@ -533,21 +533,21 @@
          /* ===========================================
             FLOATING NAVIGATION
             =========================================== */
-         .floating-nav {
-             position: fixed;
-             bottom: var(--spacing-lg);
-             left: 50%;
-             transform: translateX(-50%);
-             z-index: 99;
-             opacity: 0;
-             transition: opacity var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
-             pointer-events: none;
-         }
-         
-         .floating-nav.visible {
-             opacity: 1;
-             pointer-events: auto;
-         }
+          .floating-nav {
+              position: fixed;
+              bottom: var(--spacing-lg);
+              left: 50%;
+              transform: translateX(-50%);
+              z-index: 99;
+              opacity: 0;
+              transition: opacity 0.3s ease-in-out;
+              pointer-events: none;
+          }
+          
+          .floating-nav.visible {
+              opacity: 1;
+              pointer-events: auto;
+          }
          
           .floating-nav-content {
               display: flex;
