@@ -567,16 +567,19 @@
             =========================================== */
          @media (max-width: 768px) {
              .floating-nav-content {
-                 padding: 8px 12px;
+                 padding: 8px 10px;
                  gap: 6px;
              }
              
              .floating-nav-link {
-                 padding: 6px 8px;
+                 flex-direction: row;
+                 gap: 4px;
+                 padding: 6px 10px;
+                 min-width: auto;
              }
              
              .nav-icon {
-                 font-size: 16px;
+                 font-size: 14px;
              }
              
              .nav-label {
@@ -587,26 +590,25 @@
          @media (max-width: 480px) {
              .floating-nav {
                  bottom: var(--spacing-md);
-                 left: var(--spacing-lg);
-                 right: var(--spacing-lg);
-                 transform: none;
-                 width: auto;
+                 left: 50%;
+                 right: auto;
+                 transform: translateX(-50%);
              }
              
              .floating-nav-content {
-                 padding: 8px 10px;
+                 padding: 8px 12px;
                  gap: 4px;
-                 justify-content: center;
-                 flex-wrap: wrap;
              }
              
              .floating-nav-link {
+                 flex-direction: column;
+                 gap: 2px;
                  padding: 6px 8px;
-                 min-width: 50px;
+                 min-width: 42px;
              }
              
              .nav-icon {
-                 font-size: 14px;
+                 font-size: 16px;
              }
              
              .nav-label {
