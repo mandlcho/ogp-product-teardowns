@@ -216,21 +216,7 @@
             color: var(--color-text-primary);
         }
         
-        .nav-links {
-            display: flex;
-            gap: var(--spacing-lg);
-            align-items: center;
-        }
-        
-        .nav-links a {
-            font-size: var(--font-size-sm);
-            color: var(--color-text-secondary);
-            transition: color var(--transition-fast);
-        }
-        
-        .nav-links a:hover {
-            color: var(--color-text-primary);
-        }
+
         
         .theme-toggle {
             background: var(--color-bg-tertiary);
@@ -688,12 +674,8 @@
          /* ===========================================
             RESPONSIVE
             =========================================== */
-        @media (max-width: 768px) {
-            .nav-links {
-                gap: var(--spacing-md);
-            }
-            
-            section {
+         @media (max-width: 768px) {
+             section {
                 padding: var(--spacing-xl) 0;
             }
             
@@ -756,17 +738,10 @@
 <body>
     <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo">Pair Chat</div>
-         <nav class="nav-links">
-                     <a href="#problem">Problem</a>
-                     <a href="#solution">Solution</a>
-                     <a href="#impact">Impact</a>
-                     <a href="#solutions">Recommendations</a>
-                     <a href="#tools">AI Agents</a>
-                     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
-                 </nav>
-            </div>
+             <div class="header-content">
+                 <div class="logo">Pair Chat</div>
+                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+             </div>
         </div>
     </header>
     
