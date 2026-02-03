@@ -740,90 +740,34 @@
                  
                  <!-- Bar Chart Visualization: Adoption + Opportunity -->
                  <div id="chart-container" style="margin: var(--spacing-xl) 0; padding: var(--spacing-lg); background: var(--color-bg-primary); border-radius: var(--radius-lg); border: 1px solid var(--color-border-default);">
-                     <div style="margin-bottom: var(--spacing-xl);">
-                         <!-- Chart Title -->
-                         <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--spacing-lg);">
-                             <h3 style="margin: 0;">Adoption Rate & Opportunity Gap</h3>
-                             <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin: 0;">Total Eligible: 160,000</p>
-                         </div>
-                         
-                         <!-- Main Bar Chart -->
-                         <svg viewBox="0 0 800 300" style="width: 100%; height: auto; max-width: 100%;">
-                             <!-- Y-axis labels -->
-                             <text x="20" y="25" font-size="14" fill="var(--color-text-secondary)" font-weight="500">All Officers</text>
-                             
-                             <!-- Main bar background (total 160K) -->
-                             <rect x="200" y="40" width="550" height="50" fill="var(--color-border-default)" opacity="0.3" rx="6"/>
-                             
-                             <!-- Active Users (78.5K) - Primary color -->
-                             <rect x="200" y="40" width="270" height="50" fill="var(--color-accent-primary)" rx="6" class="bar-active"/>
-                             
-                             <!-- Opportunity Gap (81.5K) - Secondary color -->
-                             <rect x="470" y="40" width="280" height="50" fill="var(--color-accent-secondary)" opacity="0.3" rx="6" class="bar-gap"/>
-                             
-                             <!-- Value labels on bar -->
-                             <text x="330" y="72" font-size="18" font-weight="bold" fill="white" text-anchor="middle">78,500 MAU (49%)</text>
-                             <text x="610" y="72" font-size="18" font-weight="bold" fill="var(--color-accent-secondary)" text-anchor="middle">81,500 Gap (51%)</text>
-                             
-                             <!-- Divider line between segments -->
-                             <line x1="470" y1="40" x2="470" y2="90" stroke="var(--color-bg-primary)" stroke-width="3"/>
-                             
-                             <!-- Bottom annotation -->
-                             <text x="25" y="130" font-size="12" fill="var(--color-text-muted)">Current State (Q3 2025)</text>
-                             
-                             <!-- Target State Bar (below) -->
-                             <text x="20" y="195" font-size="14" fill="var(--color-text-secondary)" font-weight="500">Target (Phase 1)</text>
-                             
-                             <!-- Target bar background -->
-                             <rect x="200" y="210" width="550" height="50" fill="var(--color-border-default)" opacity="0.3" rx="6"/>
-                             
-                             <!-- Target: 100K adopted -->
-                             <rect x="200" y="210" width="346" height="50" fill="var(--color-accent-primary)" rx="6" class="bar-target"/>
-                             
-                             <!-- Target: 60K remaining -->
-                             <rect x="546" y="210" width="204" height="50" fill="var(--color-accent-secondary)" opacity="0.3" rx="6" class="bar-target-gap"/>
-                             
-                             <!-- Value labels on target bar -->
-                             <text x="268" y="242" font-size="16" font-weight="bold" fill="white" text-anchor="middle">100,000 MAU (63%)</text>
-                             <text x="648" y="242" font-size="16" font-weight="bold" fill="var(--color-accent-secondary)" text-anchor="middle">60,000 (37%)</text>
-                             
-                             <!-- Divider line -->
-                             <line x1="546" y1="210" x2="546" y2="260" stroke="var(--color-bg-primary)" stroke-width="3"/>
-                             
-                             <!-- Bottom annotation -->
-                             <text x="25" y="300" font-size="12" fill="var(--color-text-muted)">6-Month Goal (Phase 1)</text>
-                             
-                             <!-- Legend -->
-                             <g>
-                                 <rect x="750" y="80" width="12" height="12" fill="var(--color-accent-primary)" rx="2"/>
-                                 <text x="768" y="90" font-size="12" fill="var(--color-text-secondary)">Active Users</text>
-                                 
-                                 <rect x="750" y="105" width="12" height="12" fill="var(--color-accent-secondary)" opacity="0.3" rx="2"/>
-                                 <text x="768" y="115" font-size="12" fill="var(--color-text-secondary)">Opportunity</text>
-                             </g>
-                         </svg>
+                     <!-- Chart Title -->
+                     <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--spacing-lg);">
+                         <h3 style="margin: 0;">Adoption Rate & Opportunity</h3>
+                         <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin: 0;">160,000 Eligible Officers</p>
                      </div>
                      
-                     <!-- Key Insights -->
-                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-md); margin-top: var(--spacing-xl);">
-                         <div style="padding: var(--spacing-md); background: var(--color-bg-secondary); border-radius: var(--radius-md); border-left: 3px solid var(--color-accent-primary);">
-                             <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin: 0 0 var(--spacing-xs) 0;">Current Adoption</p>
-                             <p style="font-size: var(--font-size-2xl); font-weight: bold; color: var(--color-accent-primary); margin: 0;">49%</p>
-                             <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); margin: var(--spacing-xs) 0 0 0;">Of eligible officers</p>
-                         </div>
+                     <!-- Main Bar Chart -->
+                     <svg viewBox="0 0 800 150" style="width: 100%; height: auto;">
+                         <!-- Main bar background (total 160K) -->
+                         <rect x="100" y="30" width="650" height="60" fill="var(--color-border-default)" opacity="0.2" rx="8"/>
                          
-                         <div style="padding: var(--spacing-md); background: var(--color-bg-secondary); border-radius: var(--radius-md); border-left: 3px solid var(--color-accent-secondary);">
-                             <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin: 0 0 var(--spacing-xs) 0;">Addressable Gap</p>
-                             <p style="font-size: var(--font-size-2xl); font-weight: bold; color: var(--color-accent-secondary); margin: 0;">81,500</p>
-                             <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); margin: var(--spacing-xs) 0 0 0;">Untapped officers</p>
-                         </div>
+                         <!-- Active Users (78.5K) - Primary color -->
+                         <rect x="100" y="30" width="318" height="60" fill="var(--color-accent-primary)" rx="8" class="bar-active"/>
                          
-                         <div style="padding: var(--spacing-md); background: var(--color-bg-secondary); border-radius: var(--radius-md); border-left: 3px solid var(--color-accent-primary);">
-                             <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin: 0 0 var(--spacing-xs) 0;">Phase 1 Target</p>
-                             <p style="font-size: var(--font-size-2xl); font-weight: bold; color: var(--color-accent-primary); margin: 0;">100K</p>
-                             <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); margin: var(--spacing-xs) 0 0 0;">MAU in 6 months</p>
-                         </div>
-                     </div>
+                         <!-- Opportunity Gap (81.5K) - Secondary color -->
+                         <rect x="418" y="30" width="332" height="60" fill="var(--color-accent-secondary)" opacity="0.3" rx="8" class="bar-gap"/>
+                         
+                         <!-- Value labels on bar -->
+                         <text x="259" y="67" font-size="16" font-weight="bold" fill="white" text-anchor="middle">78,500 MAU</text>
+                         <text x="584" y="67" font-size="16" font-weight="bold" fill="var(--color-accent-secondary)" text-anchor="middle">81,500 Gap</text>
+                         
+                         <!-- Divider line between segments -->
+                         <line x1="418" y1="25" x2="418" y2="95" stroke="var(--color-bg-primary)" stroke-width="2"/>
+                         
+                         <!-- Percentage labels below bar -->
+                         <text x="259" y="125" font-size="14" font-weight="bold" fill="var(--color-accent-primary)" text-anchor="middle">49%</text>
+                         <text x="584" y="125" font-size="14" font-weight="bold" fill="var(--color-accent-secondary)" text-anchor="middle">51%</text>
+                     </svg>
                  </div>
                  
                  <!-- Gap Analysis Cards -->
@@ -1185,33 +1129,17 @@
          const BarChartAnimation = (() => {
              const barActive = document.querySelector('.bar-active');
              const barGap = document.querySelector('.bar-gap');
-             const barTarget = document.querySelector('.bar-target');
-             const barTargetGap = document.querySelector('.bar-target-gap');
              const chartContainer = document.getElementById('chart-container');
              
              if (!chartContainer || !barActive) return;
              
              const init = () => {
-                 // Animate bars on page load
                  animateBars();
-                 window.addEventListener('scroll', () => {
-                     const rect = chartContainer.getBoundingClientRect();
-                     const isVisible = rect.top < window.innerHeight * 0.8;
-                     if (isVisible) {
-                         barActive.style.animation = 'barSlideIn 0.8s ease-out forwards';
-                         barGap.style.animation = 'barSlideIn 0.8s ease-out 0.2s forwards';
-                         barTarget.style.animation = 'barSlideIn 0.8s ease-out 0.4s forwards';
-                         barTargetGap.style.animation = 'barSlideIn 0.8s ease-out 0.6s forwards';
-                     }
-                 });
              };
              
              const animateBars = () => {
-                 // Initial animation on load
                  if (barActive) barActive.style.animation = 'barSlideIn 0.8s ease-out forwards';
                  if (barGap) barGap.style.animation = 'barSlideIn 0.8s ease-out 0.2s forwards';
-                 if (barTarget) barTarget.style.animation = 'barSlideIn 0.8s ease-out 0.4s forwards';
-                 if (barTargetGap) barTargetGap.style.animation = 'barSlideIn 0.8s ease-out 0.6s forwards';
              };
              
              return { init };
