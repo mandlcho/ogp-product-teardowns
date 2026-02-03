@@ -552,20 +552,6 @@
              }
          }
          
-         @keyframes barSlideIn {
-             from {
-                 width: 0;
-                 opacity: 0;
-             }
-             to {
-                 width: auto;
-                 opacity: 1;
-             }
-         }
-         
-         .bar-active, .bar-gap, .bar-target, .bar-target-gap {
-             transform-origin: left;
-         }
          
          .hero-content {
              animation: fadeInUp 0.6s ease-out;
@@ -738,37 +724,21 @@
                      Pair Chat reaches 78,500 officers, but the real story is the 81,500 who haven't adopted yet. Understanding this gap reveals the next frontier for growth.
                  </p>
                  
-                 <!-- Bar Chart Visualization: Adoption + Opportunity -->
-                 <div id="chart-container" style="margin: var(--spacing-xl) 0; padding: var(--spacing-lg); background: var(--color-bg-primary); border-radius: var(--radius-lg); border: 1px solid var(--color-border-default);">
-                     <!-- Chart Title -->
-                     <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--spacing-lg);">
-                         <h3 style="margin: 0;">Adoption Rate & Opportunity</h3>
-                         <p style="font-size: var(--font-size-xs); color: var(--color-text-muted); margin: 0;">160,000 Eligible Officers</p>
-                     </div>
+                 <!-- Bar Chart: Adoption vs Opportunity -->
+                 <svg id="chart-container" viewBox="0 0 800 120" style="width: 100%; height: auto; margin: var(--spacing-xl) 0;">
+                     <!-- Bar background -->
+                     <rect x="80" y="30" width="700" height="50" fill="var(--color-border-default)" opacity="0.2" rx="6"/>
                      
-                     <!-- Main Bar Chart -->
-                     <svg viewBox="0 0 800 150" style="width: 100%; height: auto;">
-                         <!-- Main bar background (total 160K) -->
-                         <rect x="100" y="30" width="650" height="60" fill="var(--color-border-default)" opacity="0.2" rx="8"/>
-                         
-                         <!-- Active Users (78.5K) - Primary color -->
-                         <rect x="100" y="30" width="318" height="60" fill="var(--color-accent-primary)" rx="8" class="bar-active"/>
-                         
-                         <!-- Opportunity Gap (81.5K) - Secondary color -->
-                         <rect x="418" y="30" width="332" height="60" fill="var(--color-accent-secondary)" opacity="0.3" rx="8" class="bar-gap"/>
-                         
-                         <!-- Value labels on bar -->
-                         <text x="259" y="67" font-size="16" font-weight="bold" fill="white" text-anchor="middle">78,500 MAU</text>
-                         <text x="584" y="67" font-size="16" font-weight="bold" fill="var(--color-accent-secondary)" text-anchor="middle">81,500 Gap</text>
-                         
-                         <!-- Divider line between segments -->
-                         <line x1="418" y1="25" x2="418" y2="95" stroke="var(--color-bg-primary)" stroke-width="2"/>
-                         
-                         <!-- Percentage labels below bar -->
-                         <text x="259" y="125" font-size="14" font-weight="bold" fill="var(--color-accent-primary)" text-anchor="middle">49%</text>
-                         <text x="584" y="125" font-size="14" font-weight="bold" fill="var(--color-accent-secondary)" text-anchor="middle">51%</text>
-                     </svg>
-                 </div>
+                     <!-- Active Users (49%) -->
+                     <rect x="80" y="30" width="343" height="50" fill="var(--color-accent-primary)" rx="6" class="bar-active"/>
+                     
+                     <!-- Opportunity Gap (51%) -->
+                     <rect x="423" y="30" width="357" height="50" fill="var(--color-accent-secondary)" opacity="0.3" rx="6" class="bar-gap"/>
+                     
+                     <!-- Labels -->
+                     <text x="251" y="63" font-size="14" font-weight="bold" fill="white" text-anchor="middle">78.5K (49%)</text>
+                     <text x="601" y="63" font-size="14" font-weight="bold" fill="var(--color-accent-secondary)" text-anchor="middle">81.5K (51%)</text>
+                 </svg>
                  
                  <!-- Gap Analysis Cards -->
                  <h3 style="margin-top: var(--spacing-xl);">Why The Gap Exists</h3>
@@ -1125,31 +1095,7 @@
             ThemeManager.init();
         }
         
-         // Bar Chart Animation on Scroll
-         const BarChartAnimation = (() => {
-             const barActive = document.querySelector('.bar-active');
-             const barGap = document.querySelector('.bar-gap');
-             const chartContainer = document.getElementById('chart-container');
-             
-             if (!chartContainer || !barActive) return;
-             
-             const init = () => {
-                 animateBars();
-             };
-             
-             const animateBars = () => {
-                 if (barActive) barActive.style.animation = 'barSlideIn 0.8s ease-out forwards';
-                 if (barGap) barGap.style.animation = 'barSlideIn 0.8s ease-out 0.2s forwards';
-             };
-             
-             return { init };
-         })();
-         
-         if (document.readyState === 'loading') {
-             document.addEventListener('DOMContentLoaded', BarChartAnimation.init);
-         } else {
-             BarChartAnimation.init();
-         }
+
     </script>
 </body>
 </html>
