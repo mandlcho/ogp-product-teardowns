@@ -329,6 +329,11 @@
             color: var(--color-accent-primary);
         }
         
+        .hero-nav-link.active {
+            color: var(--color-accent-primary);
+            font-weight: var(--font-weight-semibold);
+        }
+        
         .cta-button {
             display: inline-block;
             padding: var(--spacing-md) var(--spacing-lg);
@@ -810,9 +815,11 @@
                          <div class="hero-nav-links">
                              <button class="hero-nav-link" data-scroll-to="problem">Problem</button>
                              <button class="hero-nav-link" data-scroll-to="solution">Solution</button>
+                             <button class="hero-nav-link" data-scroll-to="impact">Impact</button>
                              <button class="hero-nav-link" data-scroll-to="adoption">The Gap</button>
                              <button class="hero-nav-link" data-scroll-to="solutions">Recommendations</button>
                              <button class="hero-nav-link" data-scroll-to="tools">AI Agents</button>
+                             <button class="hero-nav-link" data-scroll-to="competitive">Competition</button>
                              <button class="hero-nav-link" data-scroll-to="roadmap">Roadmap</button>
                          </div>
                      </div>
@@ -1267,6 +1274,10 @@
                   <span class="nav-icon">🤖</span>
                   <span class="nav-label">Agents</span>
               </button>
+              <button class="floating-nav-link" data-scroll-to="competitive" title="Competition">
+                  <span class="nav-icon">🎖️</span>
+                  <span class="nav-label">Compete</span>
+              </button>
               <button class="floating-nav-link" data-scroll-to="roadmap" title="Roadmap">
                   <span class="nav-icon">🗺️</span>
                   <span class="nav-label">Road</span>
@@ -1364,15 +1375,16 @@
               
               if (!floatingNav) return;
               
-              const sections = [
-                  { id: 'problem', link: floatingNav.querySelector('[data-scroll-to="problem"]') },
-                  { id: 'solution', link: floatingNav.querySelector('[data-scroll-to="solution"]') },
-                  { id: 'impact', link: floatingNav.querySelector('[data-scroll-to="impact"]') },
-                  { id: 'adoption', link: floatingNav.querySelector('[data-scroll-to="adoption"]') },
-                  { id: 'solutions', link: floatingNav.querySelector('[data-scroll-to="solutions"]') },
-                  { id: 'tools', link: floatingNav.querySelector('[data-scroll-to="tools"]') },
-                  { id: 'roadmap', link: floatingNav.querySelector('[data-scroll-to="roadmap"]') }
-              ];
+               const sections = [
+                   { id: 'problem', link: floatingNav.querySelector('[data-scroll-to="problem"]') },
+                   { id: 'solution', link: floatingNav.querySelector('[data-scroll-to="solution"]') },
+                   { id: 'impact', link: floatingNav.querySelector('[data-scroll-to="impact"]') },
+                   { id: 'adoption', link: floatingNav.querySelector('[data-scroll-to="adoption"]') },
+                   { id: 'solutions', link: floatingNav.querySelector('[data-scroll-to="solutions"]') },
+                   { id: 'tools', link: floatingNav.querySelector('[data-scroll-to="tools"]') },
+                   { id: 'competitive', link: floatingNav.querySelector('[data-scroll-to="competitive"]') },
+                   { id: 'roadmap', link: floatingNav.querySelector('[data-scroll-to="roadmap"]') }
+               ];
              
               const init = () => {
                   window.addEventListener('scroll', handleScroll);
@@ -1414,33 +1426,48 @@
                  }
              };
              
-             const highlightActiveSection = () => {
-                 let currentSection = null;
-                 const scrollTop = window.scrollY + 300; // Offset for better UX
-                 let closestDistance = Infinity;
-                 
-                 sections.forEach(section => {
-                     const element = document.getElementById(section.id);
-                     if (element) {
-                         const sectionTop = element.offsetTop;
-                         const distance = Math.abs(sectionTop - scrollTop);
-                         
-                         // Find the closest section to current scroll position
-                         if (distance < closestDistance) {
-                             closestDistance = distance;
-                             currentSection = section;
-                         }
-                     }
-                 });
-                 
-                 // Remove active class from all links
-                 navLinks.forEach(link => link.classList.remove('active'));
-                 
-                 // Add active class to current section
-                 if (currentSection && currentSection.link) {
-                     currentSection.link.classList.add('active');
-                 }
-             };
+               const highlightActiveSection = () => {
+                  let currentSection = null;
+                  const scrollTop = window.scrollY;
+                  const viewportCenter = scrollTop + window.innerHeight / 2; // Use viewport center for better accuracy
+                  let closestDistance = Infinity;
+                  
+                  sections.forEach(section => {
+                      const element = document.getElementById(section.id);
+                      if (element) {
+                          const sectionTop = element.offsetTop;
+                          const sectionBottom = sectionTop + element.offsetHeight;
+                          
+                          // Check if section is in viewport
+                          if (scrollTop < sectionBottom && scrollTop + window.innerHeight > sectionTop) {
+                              const sectionCenter = (sectionTop + sectionBottom) / 2;
+                              const distance = Math.abs(sectionCenter - viewportCenter);
+                              
+                              if (distance < closestDistance) {
+                                  closestDistance = distance;
+                                  currentSection = section;
+                              }
+                          }
+                      }
+                  });
+                  
+                  // Remove active class from all nav links (both floating and hero)
+                  document.querySelectorAll('[data-scroll-to]').forEach(link => link.classList.remove('active'));
+                  
+                  // Add active class to current section
+                  if (currentSection) {
+                      // Update floating nav
+                      if (currentSection.link) {
+                          currentSection.link.classList.add('active');
+                      }
+                      
+                      // Also update hero nav button with same data-scroll-to
+                      const heroBtn = document.querySelector(`.hero-nav-link[data-scroll-to="${currentSection.id}"]`);
+                      if (heroBtn) {
+                          heroBtn.classList.add('active');
+                      }
+                  }
+              };
              
              return { init };
          })();
