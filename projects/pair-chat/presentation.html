@@ -727,17 +727,17 @@
                  <!-- Bar Chart: Adoption vs Opportunity -->
                  <svg id="chart-container" viewBox="0 0 800 120" style="width: 100%; height: auto; margin: var(--spacing-xl) 0;">
                      <!-- Bar background -->
-                     <rect x="80" y="30" width="700" height="50" fill="var(--color-border-default)" opacity="0.2" rx="6"/>
+                     <rect x="80" y="30" width="700" height="50" fill="var(--color-border-default)" opacity="0.15" rx="6"/>
                      
-                     <!-- Active Users (49%) -->
-                     <rect x="80" y="30" width="343" height="50" fill="var(--color-accent-primary)" rx="6" class="bar-active"/>
+                     <!-- Active Users (49%) - Blue -->
+                     <rect x="80" y="30" width="343" height="50" fill="var(--color-accent-primary)" rx="6"/>
                      
-                     <!-- Opportunity Gap (51%) -->
-                     <rect x="423" y="30" width="357" height="50" fill="var(--color-accent-secondary)" opacity="0.3" rx="6" class="bar-gap"/>
+                     <!-- Opportunity Gap (51%) - Green (full opacity) -->
+                     <rect x="423" y="30" width="357" height="50" fill="var(--color-accent-secondary)" rx="6"/>
                      
-                     <!-- Labels -->
-                     <text x="251" y="63" font-size="14" font-weight="bold" fill="white" text-anchor="middle">78.5K (49%)</text>
-                     <text x="601" y="63" font-size="14" font-weight="bold" fill="var(--color-accent-secondary)" text-anchor="middle">81.5K (51%)</text>
+                     <!-- Labels - White text for dark mode, adjust for light mode -->
+                     <text x="251" y="63" font-size="14" font-weight="bold" fill="white" text-anchor="middle" style="mix-blend-mode: lighten;">78.5K (49%)</text>
+                     <text x="601" y="63" font-size="14" font-weight="bold" fill="white" text-anchor="middle" style="mix-blend-mode: lighten;">81.5K (51%)</text>
                  </svg>
                  
                  <!-- Gap Analysis Cards -->
