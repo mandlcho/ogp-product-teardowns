@@ -38,14 +38,14 @@
             --font-family-sans: 'Inter', sans-serif;
             --font-family-mono: 'JetBrains Mono', monospace;
             
-            --font-size-xs: 1rem;
-            --font-size-sm: 1.125rem;
-            --font-size-base: 1.25rem;
-            --font-size-lg: 1.375rem;
-            --font-size-xl: 2rem;
-            --font-size-2xl: 2.75rem;
-            --font-size-3xl: 3.25rem;
-            --font-size-4xl: 3.75rem;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.84375rem;
+            --font-size-base: 0.9375rem;
+            --font-size-lg: 1.03125rem;
+            --font-size-xl: 1.5rem;
+            --font-size-2xl: 2.0625rem;
+            --font-size-3xl: 2.4375rem;
+            --font-size-4xl: 2.8125rem;
             
             --font-weight-light: 300;
             --font-weight-regular: 400;
@@ -144,7 +144,7 @@
         }
         
         h1 {
-            font-size: clamp(2.5rem, 5vw, var(--font-size-4xl));
+            font-size: clamp(1.875rem, 5vw, 2.8125rem);
             letter-spacing: -0.02em;
         }
         
@@ -153,28 +153,28 @@
             letter-spacing: -0.01em;
         }
         
-        h3 {
-            font-size: var(--font-size-2xl);
-        }
+         h3 {
+             font-size: var(--font-size-3xl);
+         }
         
-        h4 {
-            font-size: var(--font-size-lg);
-        }
+         h4 {
+             font-size: var(--font-size-xl);
+         }
         
-        p {
-            margin-bottom: var(--spacing-md);
-            color: var(--color-text-secondary);
-            font-size: var(--font-size-sm);
-        }
+         p {
+             margin-bottom: var(--spacing-md);
+             color: var(--color-text-secondary);
+             font-size: var(--font-size-base);
+         }
         
-        p.eyebrow {
-            font-size: var(--font-size-xs);
-            font-weight: var(--font-weight-semibold);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--color-accent-primary);
-            margin-bottom: var(--spacing-sm);
-        }
+         p.eyebrow {
+             font-size: var(--font-size-sm);
+             font-weight: var(--font-weight-semibold);
+             text-transform: uppercase;
+             letter-spacing: 0.1em;
+             color: var(--color-accent-primary);
+             margin-bottom: var(--spacing-sm);
+         }
         
         a {
             color: var(--color-accent-primary);
@@ -304,13 +304,42 @@
             font-size: var(--font-size-xs);
             color: var(--color-text-muted);
             margin-bottom: var(--spacing-sm);
+            display: none;
         }
         
         .hero-nav-links {
             display: flex;
             gap: var(--spacing-md);
             flex-wrap: wrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: var(--spacing-xs);
+            margin-bottom: calc(-1 * var(--spacing-xs));
+            scrollbar-width: none;
         }
+        
+        .hero-nav-links::-webkit-scrollbar {
+            display: none;
+        }
+        
+         @media (max-width: 768px) {
+             .hero-nav-links {
+                 flex-wrap: nowrap;
+                 overflow-x: auto;
+                 gap: var(--spacing-sm);
+                 max-width: 100%;
+             }
+             
+             table {
+                 font-size: var(--font-size-xs) !important;
+             }
+             
+             table th, table td {
+                 padding: 0.5rem 0.4rem !important;
+             }
+         }
         
         .hero-nav-link {
             font-size: var(--font-size-xs);
@@ -318,10 +347,22 @@
             text-decoration: underline;
             transition: color var(--transition-fast);
             cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: inherit;
+            font-weight: inherit;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
         .hero-nav-link:hover {
             color: var(--color-accent-primary);
+        }
+        
+        .hero-nav-link.active {
+            color: var(--color-accent-primary);
+            font-weight: var(--font-weight-semibold);
         }
         
         .cta-button {
@@ -398,7 +439,7 @@
         }
         
         .stat-value {
-            font-size: clamp(2.5rem, 4vw, 3.75rem);
+            font-size: clamp(1.875rem, 4vw, 2.8125rem);
             font-weight: var(--font-weight-bold);
             color: var(--color-accent-primary);
             line-height: 1;
@@ -448,7 +489,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
+            font-size: 1.3125rem;
             margin-bottom: var(--spacing-md);
         }
         
@@ -501,49 +542,54 @@
          /* ===========================================
             FLOATING NAVIGATION
             =========================================== */
-         .floating-nav {
-             position: fixed;
-             bottom: var(--spacing-lg);
-             left: 50%;
-             transform: translateX(-50%);
-             z-index: 99;
-             opacity: 0;
-             transition: opacity var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
-             pointer-events: none;
-         }
+          .floating-nav {
+              position: fixed;
+              bottom: var(--spacing-lg);
+              left: 50%;
+              transform: translateX(-50%);
+              z-index: 99;
+              opacity: 0;
+              transition: opacity 0.3s ease-in-out;
+              pointer-events: none;
+          }
+          
+          .floating-nav.visible {
+              opacity: 1;
+              pointer-events: auto;
+          }
          
-         .floating-nav.visible {
-             opacity: 1;
-             pointer-events: auto;
-         }
-         
-         .floating-nav-content {
-             display: flex;
-             gap: var(--spacing-sm);
-             background: var(--color-bg-secondary);
-             border: 1px solid var(--color-border-default);
-             border-radius: 50px;
-             padding: var(--spacing-sm) var(--spacing-md);
-             box-shadow: var(--shadow-lg);
-             backdrop-filter: blur(10px);
-         }
+          .floating-nav-content {
+              display: flex;
+              gap: var(--spacing-sm);
+              background: rgba(26, 31, 40, 0.85);
+              border: 1px solid var(--color-border-default);
+              border-radius: 50px;
+              padding: var(--spacing-sm) var(--spacing-md);
+              box-shadow: var(--shadow-lg);
+              backdrop-filter: blur(10px);
+          }
+          
+          html[data-theme="light"] .floating-nav-content {
+              background: rgba(248, 249, 250, 0.85);
+          }
          
          .floating-nav-link {
-             display: flex;
-             flex-direction: column;
-             align-items: center;
-             justify-content: center;
-             gap: 4px;
-             padding: var(--spacing-xs) var(--spacing-sm);
-             border-radius: 8px;
-             font-size: var(--font-size-xs);
-             font-weight: var(--font-weight-semibold);
-             color: var(--color-text-secondary);
-             background: var(--color-bg-tertiary);
-             border: 1px solid var(--color-border-default);
-             transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
-             position: relative;
-             text-align: center;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              gap: 4px;
+              padding: var(--spacing-xs) var(--spacing-sm);
+              border-radius: 8px;
+              font-size: var(--font-size-xs);
+              font-weight: var(--font-weight-semibold);
+              color: var(--color-text-secondary);
+              background: var(--color-bg-tertiary);
+              border: 1px solid var(--color-border-default);
+              transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+              position: relative;
+              text-align: center;
+              cursor: pointer;
          }
          
          .nav-icon {
@@ -564,29 +610,14 @@
              transform: scale(1.05);
          }
          
-         .floating-nav-link.active {
-             background: var(--color-accent-primary);
-             color: white;
-             border-color: var(--color-accent-primary);
-             font-weight: var(--font-weight-bold);
-             box-shadow: 0 0 0 2px rgba(74, 144, 255, 0.2);
-             animation: activeButtonPulse 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-         }
-         
-         @keyframes activeButtonPulse {
-             0% {
-                 transform: scale(0.95);
-                 opacity: 0.8;
-             }
-             50% {
-                 box-shadow: 0 0 8px 2px rgba(74, 144, 255, 0.4);
-             }
-             100% {
-                 transform: scale(1);
-                 opacity: 1;
-                 box-shadow: 0 0 0 2px rgba(74, 144, 255, 0.2);
-             }
-         }
+          .floating-nav-link.active {
+              background: var(--color-accent-primary);
+              color: white;
+              border-color: var(--color-accent-primary);
+              font-weight: var(--font-weight-bold);
+              box-shadow: 0 0 0 2px rgba(74, 144, 255, 0.2);
+              transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+          }
          
          /* ===========================================
             PLATFORM-SPECIFIC FLOATING NAV
@@ -606,13 +637,13 @@
          }
          
          html[data-platform="mobile"] .nav-icon {
-             font-size: 18px;
-         }
-         
-         html[data-platform="mobile"] .nav-label {
-             font-size: 8px;
-             font-weight: var(--font-weight-semibold);
-         }
+              font-size: 13.5px;
+          }
+          
+          html[data-platform="mobile"] .nav-label {
+              font-size: 6px;
+              font-weight: var(--font-weight-semibold);
+          }
          
          /* Tablet - Icon + Label horizontal */
          html[data-platform="tablet"] .floating-nav-content {
@@ -628,12 +659,12 @@
          }
          
          html[data-platform="tablet"] .nav-icon {
-             font-size: 16px;
-         }
-         
-         html[data-platform="tablet"] .nav-label {
-             font-size: 10px;
-         }
+              font-size: 12px;
+          }
+          
+          html[data-platform="tablet"] .nav-label {
+              font-size: 7.5px;
+          }
          
          /* Desktop - Full labels with hover tooltips */
          html[data-platform="desktop"] .floating-nav-content {
@@ -649,13 +680,13 @@
          }
          
          html[data-platform="desktop"] .nav-icon {
-             font-size: 20px;
-         }
-         
-         html[data-platform="desktop"] .nav-label {
-             font-size: 11px;
-             font-weight: var(--font-weight-semibold);
-         }
+              font-size: 15px;
+          }
+          
+          html[data-platform="desktop"] .nav-label {
+              font-size: 8.25px;
+              font-weight: var(--font-weight-semibold);
+          }
          
          /* ===========================================
             RESPONSIVE FALLBACK (Media Queries)
@@ -673,13 +704,13 @@
                  min-width: auto;
              }
              
-             .nav-icon {
-                 font-size: 14px;
-             }
-             
-             .nav-label {
-                 font-size: 9px;
-             }
+              .nav-icon {
+                  font-size: 10.5px;
+              }
+              
+              .nav-label {
+                  font-size: 6.75px;
+              }
          }
          
          @media (max-width: 480px) {
@@ -702,14 +733,14 @@
                  min-width: 42px;
              }
              
-             .nav-icon {
-                 font-size: 16px;
-             }
-             
-             .nav-label {
-                 font-size: 8px;
-             }
-         }
+              .nav-icon {
+                  font-size: 12px;
+              }
+              
+              .nav-label {
+                  font-size: 6px;
+              }
+          }
          
          /* ===========================================
             RESPONSIVE
@@ -802,12 +833,14 @@
                      <div class="hero-nav">
                          <p>Jump to:</p>
                          <div class="hero-nav-links">
-                             <a href="#problem" class="hero-nav-link">Problem</a>
-                             <a href="#solution" class="hero-nav-link">Solution</a>
-                             <a href="#adoption" class="hero-nav-link">The Gap</a>
-                             <a href="#solutions" class="hero-nav-link">Recommendations</a>
-                             <a href="#tools" class="hero-nav-link">AI Agents</a>
-                             <a href="#roadmap" class="hero-nav-link">Roadmap</a>
+                             <button class="hero-nav-link" data-scroll-to="problem">Problem</button>
+                             <button class="hero-nav-link" data-scroll-to="solution">Solution</button>
+                             <button class="hero-nav-link" data-scroll-to="impact">Impact</button>
+                             <button class="hero-nav-link" data-scroll-to="adoption">The Gap</button>
+                             <button class="hero-nav-link" data-scroll-to="solutions">Recommendations</button>
+                             <button class="hero-nav-link" data-scroll-to="tools">AI Agents</button>
+                             <button class="hero-nav-link" data-scroll-to="competitive">Competition</button>
+                             <button class="hero-nav-link" data-scroll-to="roadmap">Roadmap</button>
                          </div>
                      </div>
                 </div>
@@ -938,8 +971,8 @@
                      <rect x="423" y="30" width="357" height="50" fill="var(--color-accent-secondary)" rx="6"/>
                      
                      <!-- Labels - White text for dark mode, adjust for light mode -->
-                     <text x="251" y="63" font-size="14" font-weight="bold" fill="white" text-anchor="middle" style="mix-blend-mode: lighten;">78.5K (49%)</text>
-                     <text x="601" y="63" font-size="14" font-weight="bold" fill="white" text-anchor="middle" style="mix-blend-mode: lighten;">81.5K (51%)</text>
+                     <text x="251" y="63" font-size="10.5" font-weight="bold" fill="white" text-anchor="middle" style="mix-blend-mode: lighten;">78.5K (49%)</text>
+                     <text x="601" y="63" font-size="10.5" font-weight="bold" fill="white" text-anchor="middle" style="mix-blend-mode: lighten;">81.5K (51%)</text>
                  </svg>
                  
                  <!-- Gap Analysis Cards -->
@@ -1022,19 +1055,19 @@
          <section id="tools" style="background: var(--color-bg-secondary);">
              <div class="container">
                  <p class="eyebrow">Next Generation</p>
-                 <h2>Beyond Chat: AI Agents for Government</h2>
+                  <h2>Model Selection: AI Agents for Government</h2>
                  <p>
                      Pair Chat's foundation is strong. The next frontier is specialized AI agents—each optimized for specific government workflows. Here's the vision.
                  </p>
                  
-                 <div style="margin: var(--spacing-xl) 0; width: 100%; overflow-x: hidden;">
-                     <table style="width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); table-layout: fixed;">
-                         <thead>
-                             <tr style="border-bottom: 2px solid var(--color-border-default);">
-                                 <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word;">Agent Type</th>
-                                 <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word;">Use Cases</th>
-                                 <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word;">Model</th>
-                                 <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word;">Why This Model</th>
+                  <div style="margin: var(--spacing-xl) 0; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                      <table style="width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); table-layout: auto; min-width: 600px;">
+                          <thead>
+                              <tr style="border-bottom: 2px solid var(--color-border-default);">
+                                  <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word; min-width: 120px;">Agent Type</th>
+                                  <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word; min-width: 150px;">Use Cases</th>
+                                  <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word; min-width: 120px;">Model</th>
+                                  <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word; min-width: 150px;">Why This Model</th>
                              </tr>
                          </thead>
                          <tbody>
@@ -1097,14 +1130,14 @@
                      Pair Chat isn't competing with ChatGPT in the consumer space. It's a different category: secure, government-optimized AI. Here's how it stacks up.
                  </p>
                  
-                 <div style="margin: var(--spacing-xl) 0; width: 100%; overflow-x: hidden;">
-                     <table style="width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); table-layout: fixed;">
-                         <thead>
-                             <tr style="border-bottom: 2px solid var(--color-border-default);">
-                                 <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word;">Feature</th>
-                                 <th style="text-align: center; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word;">Pair Chat</th>
-                                 <th style="text-align: center; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word;">ChatGPT</th>
-                                 <th style="text-align: center; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word;">UK GDS Roadmap*</th>
+                  <div style="margin: var(--spacing-xl) 0; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                      <table style="width: 100%; border-collapse: collapse; font-size: var(--font-size-sm); table-layout: auto; min-width: 600px;">
+                          <thead>
+                              <tr style="border-bottom: 2px solid var(--color-border-default);">
+                                  <th style="text-align: left; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word; min-width: 140px;">Feature</th>
+                                  <th style="text-align: center; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word; min-width: 110px;">Pair Chat</th>
+                                  <th style="text-align: center; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word; min-width: 100px;">ChatGPT</th>
+                                  <th style="text-align: center; padding: var(--spacing-md); color: var(--color-text-primary); font-weight: var(--font-weight-semibold); word-wrap: break-word; min-width: 120px;">UK GDS Roadmap*</th>
                              </tr>
                          </thead>
                          <tbody>
@@ -1200,11 +1233,10 @@
              </div>
          </section>
 
-         <!-- CONCLUSION SECTION -->
-         <section id="conclusion">
-             <div class="container">
-                 <p class="eyebrow">The Opportunity</p>
-                 <h2>Pair Chat's Next Chapter</h2>
+          <!-- CONCLUSION SECTION -->
+          <section id="conclusion">
+              <div class="container">
+                  <h2>Pair Chat's Next Chapter</h2>
                  <p style="font-size: var(--font-size-lg); color: var(--color-text-secondary); margin-bottom: var(--spacing-lg);">
                      Pair Chat has proven product-market fit with 78,500 officers. The 81,500 who haven't adopted yet aren't skeptics—they're waiting for better onboarding, wider access, and clearer use cases.
                  </p>
@@ -1234,39 +1266,43 @@
          </section>
      </main>
 
-     <!-- Floating Bottom Navigation -->
-     <nav id="floating-nav" class="floating-nav" style="display: none;">
-         <div class="floating-nav-content">
-             <a href="#problem" class="floating-nav-link" title="Problem">
-                 <span class="nav-icon">🎯</span>
-                 <span class="nav-label">Problem</span>
-             </a>
-              <a href="#solution" class="floating-nav-link" title="Solution">
+      <!-- Floating Bottom Navigation -->
+      <nav id="floating-nav" class="floating-nav" style="display: none;">
+          <div class="floating-nav-content">
+              <button class="floating-nav-link" data-scroll-to="problem" title="Problem">
+                  <span class="nav-icon">🎯</span>
+                  <span class="nav-label">Problem</span>
+              </button>
+              <button class="floating-nav-link" data-scroll-to="solution" title="Solution">
                   <span class="nav-icon">💡</span>
                   <span class="nav-label">Solution</span>
-              </a>
-              <a href="#impact" class="floating-nav-link" title="Impact">
+              </button>
+              <button class="floating-nav-link" data-scroll-to="impact" title="Impact">
                   <span class="nav-icon">📈</span>
                   <span class="nav-label">Impact</span>
-              </a>
-              <a href="#adoption" class="floating-nav-link" title="Gap">
-                 <span class="nav-icon">📊</span>
-                 <span class="nav-label">Gap</span>
-             </a>
-             <a href="#solutions" class="floating-nav-link" title="Recommendations">
-                 <span class="nav-icon">🎨</span>
-                 <span class="nav-label">Recs</span>
-             </a>
-             <a href="#tools" class="floating-nav-link" title="AI Agents">
-                 <span class="nav-icon">🤖</span>
-                 <span class="nav-label">Agents</span>
-             </a>
-             <a href="#roadmap" class="floating-nav-link" title="Roadmap">
-                 <span class="nav-icon">🗺️</span>
-                 <span class="nav-label">Road</span>
-             </a>
-         </div>
-     </nav>
+              </button>
+              <button class="floating-nav-link" data-scroll-to="adoption" title="Gap">
+                  <span class="nav-icon">📊</span>
+                  <span class="nav-label">Gap</span>
+              </button>
+              <button class="floating-nav-link" data-scroll-to="solutions" title="Recommendations">
+                  <span class="nav-icon">🎨</span>
+                  <span class="nav-label">Recs</span>
+              </button>
+              <button class="floating-nav-link" data-scroll-to="tools" title="AI Agents">
+                  <span class="nav-icon">🤖</span>
+                  <span class="nav-label">Agents</span>
+              </button>
+              <button class="floating-nav-link" data-scroll-to="competitive" title="Competition">
+                  <span class="nav-icon">🎖️</span>
+                  <span class="nav-label">Compete</span>
+              </button>
+              <button class="floating-nav-link" data-scroll-to="roadmap" title="Roadmap">
+                  <span class="nav-icon">🗺️</span>
+                  <span class="nav-label">Road</span>
+              </button>
+          </div>
+      </nav>
      
      <script>
         // Theme Toggle
@@ -1350,79 +1386,108 @@
          
          PlatformDetection.init();
          
-         // Floating Navigation Manager
-         const FloatingNav = (() => {
-             const floatingNav = document.getElementById('floating-nav');
-             const heroSection = document.querySelector('.hero');
-             const navLinks = document.querySelectorAll('.floating-nav-link');
+          // Floating Navigation Manager
+          const FloatingNav = (() => {
+              const floatingNav = document.getElementById('floating-nav');
+              const heroSection = document.querySelector('.hero');
+              const navLinks = document.querySelectorAll('.floating-nav-link');
+              
+              if (!floatingNav) return;
+              
+               const sections = [
+                   { id: 'problem', link: floatingNav.querySelector('[data-scroll-to="problem"]') },
+                   { id: 'solution', link: floatingNav.querySelector('[data-scroll-to="solution"]') },
+                   { id: 'impact', link: floatingNav.querySelector('[data-scroll-to="impact"]') },
+                   { id: 'adoption', link: floatingNav.querySelector('[data-scroll-to="adoption"]') },
+                   { id: 'solutions', link: floatingNav.querySelector('[data-scroll-to="solutions"]') },
+                   { id: 'tools', link: floatingNav.querySelector('[data-scroll-to="tools"]') },
+                   { id: 'competitive', link: floatingNav.querySelector('[data-scroll-to="competitive"]') },
+                   { id: 'roadmap', link: floatingNav.querySelector('[data-scroll-to="roadmap"]') }
+               ];
              
-             if (!floatingNav) return;
-             
-             const sections = [
-                 { id: 'problem', link: floatingNav.querySelector('a[href="#problem"]') },
-                 { id: 'solution', link: floatingNav.querySelector('a[href="#solution"]') },
-                 { id: 'impact', link: floatingNav.querySelector('a[href="#impact"]') },
-                 { id: 'adoption', link: floatingNav.querySelector('a[href="#adoption"]') },
-                 { id: 'solutions', link: floatingNav.querySelector('a[href="#solutions"]') },
-                 { id: 'tools', link: floatingNav.querySelector('a[href="#tools"]') },
-                 { id: 'roadmap', link: floatingNav.querySelector('a[href="#roadmap"]') }
-             ];
-             
-             const init = () => {
-                 window.addEventListener('scroll', handleScroll);
-             };
+              const init = () => {
+                  window.addEventListener('scroll', handleScroll);
+                  
+                  // Add click handlers to all scroll buttons
+                  document.querySelectorAll('[data-scroll-to]').forEach(btn => {
+                      btn.addEventListener('click', (e) => {
+                          e.preventDefault();
+                          const targetId = btn.getAttribute('data-scroll-to');
+                          const target = document.getElementById(targetId);
+                          if (target) {
+                              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }
+                      });
+                  });
+              };
              
              const handleScroll = () => {
                  toggleFloatingNav();
                  highlightActiveSection();
              };
              
-             const toggleFloatingNav = () => {
-                 if (!heroSection) return;
-                 
-                 const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-                 const scrollTop = window.scrollY;
-                 
-                 if (scrollTop > heroBottom) {
-                     floatingNav.classList.add('visible');
-                     floatingNav.style.display = 'flex';
-                 } else {
-                     floatingNav.classList.remove('visible');
-                     setTimeout(() => {
-                         if (!floatingNav.classList.contains('visible')) {
-                             floatingNav.style.display = 'none';
-                         }
-                     }, 300);
-                 }
-             };
+              const toggleFloatingNav = () => {
+                  if (!heroSection) return;
+                  
+                  const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                  const scrollTop = window.scrollY;
+                  const showThreshold = heroBottom * 0.6; // Show nav at 60% through hero section
+                  
+                  if (scrollTop > showThreshold) {
+                      floatingNav.classList.add('visible');
+                      floatingNav.style.display = 'flex';
+                  } else {
+                      floatingNav.classList.remove('visible');
+                      setTimeout(() => {
+                          if (!floatingNav.classList.contains('visible')) {
+                              floatingNav.style.display = 'none';
+                          }
+                      }, 300);
+                  }
+              };
              
-             const highlightActiveSection = () => {
-                 let currentSection = null;
-                 const scrollTop = window.scrollY + 300; // Offset for better UX
-                 let closestDistance = Infinity;
-                 
-                 sections.forEach(section => {
-                     const element = document.getElementById(section.id);
-                     if (element) {
-                         const sectionTop = element.offsetTop;
-                         const distance = Math.abs(sectionTop - scrollTop);
-                         
-                         // Find the closest section to current scroll position
-                         if (distance < closestDistance) {
-                             closestDistance = distance;
-                             currentSection = section;
-                         }
-                     }
-                 });
-                 
-                 // Remove active class from all links
-                 navLinks.forEach(link => link.classList.remove('active'));
-                 
-                 // Add active class to current section
-                 if (currentSection && currentSection.link) {
-                     currentSection.link.classList.add('active');
-                 }
-             };
+               const highlightActiveSection = () => {
+                  let currentSection = null;
+                  const scrollTop = window.scrollY;
+                  const viewportCenter = scrollTop + window.innerHeight / 2; // Use viewport center for better accuracy
+                  let closestDistance = Infinity;
+                  
+                  sections.forEach(section => {
+                      const element = document.getElementById(section.id);
+                      if (element) {
+                          const sectionTop = element.offsetTop;
+                          const sectionBottom = sectionTop + element.offsetHeight;
+                          
+                          // Check if section is in viewport
+                          if (scrollTop < sectionBottom && scrollTop + window.innerHeight > sectionTop) {
+                              const sectionCenter = (sectionTop + sectionBottom) / 2;
+                              const distance = Math.abs(sectionCenter - viewportCenter);
+                              
+                              if (distance < closestDistance) {
+                                  closestDistance = distance;
+                                  currentSection = section;
+                              }
+                          }
+                      }
+                  });
+                  
+                  // Remove active class from all nav links (both floating and hero)
+                  document.querySelectorAll('[data-scroll-to]').forEach(link => link.classList.remove('active'));
+                  
+                  // Add active class to current section
+                  if (currentSection) {
+                      // Update floating nav
+                      if (currentSection.link) {
+                          currentSection.link.classList.add('active');
+                      }
+                      
+                      // Also update hero nav button with same data-scroll-to
+                      const heroBtn = document.querySelector(`.hero-nav-link[data-scroll-to="${currentSection.id}"]`);
+                      if (heroBtn) {
+                          heroBtn.classList.add('active');
+                      }
+                  }
+              };
              
              return { init };
          })();
