@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedeemSG: How We Can Improve It</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+    <style>
+        /* ===========================================
+           REDEEMSG IMPROVEMENTS PRESENTATION
+           Focus: Product-centric improvements with clear action items
+           =========================================== */
+        :root {
+            --bg-primary: #0f172a;
+            --bg-gradient-start: #1e293b;
+            --bg-gradient-end: #0f172a;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --accent-purple: #a78bfa;
+            --accent-orange: #f97316;
+            
+            --font-display: 'JetBrains Mono', monospace;
+            --font-body: 'IBM Plex Mono', monospace;
+            
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===========================================
+           ANIMATED GRADIENT ORBS
+           =========================================== */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::before {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-green) 0%, transparent 70%);
+            top: -150px;
+            right: -150px;
+            animation: float-orb-1 25s ease-in-out infinite;
+        }
+
+        body::after {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: float-orb-2 30s ease-in-out infinite;
+        }
+
+        @keyframes float-orb-1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(80px, 120px) scale(1.15); }
+            50% { transform: translate(-50px, 80px) scale(0.9); }
+            75% { transform: translate(40px, -60px) scale(1.05); }
+        }
+
+        @keyframes float-orb-2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-70px, -100px) scale(1.2); }
+            50% { transform: translate(60px, -50px) scale(0.95); }
+            75% { transform: translate(-40px, 70px) scale(1.1); }
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent-green);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        /* ===========================================
+           NAVIGATION DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+            border: 2px solid transparent;
+            opacity: 0.5;
+        }
+
+        .nav-dot:hover {
+            background: var(--text-secondary);
+            transform: scale(1.3);
+            opacity: 0.7;
+        }
+
+        .nav-dot.active {
+            background: var(--accent-green);
+            transform: scale(1.5);
+            box-shadow: 0 0 12px var(--accent-green);
+            opacity: 1;
+        }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            min-height: 100vh;
+            padding: clamp(2rem, 5vw, 4rem);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        h1::before {
+            content: '→ ';
+            color: var(--accent-green);
+            opacity: 0.8;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        h2::before {
+            content: '// ';
+            color: var(--accent-blue);
+            opacity: 0.6;
+            font-size: 0.8em;
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-orange);
+        }
+
+        p {
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ===========================================
+           TITLE SLIDE
+           =========================================== */
+        .title-slide {
+            text-align: left;
+        }
+
+        .title-slide h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+            border-left: 3px solid var(--accent-blue);
+            line-height: 1.6;
+        }
+
+        .meta {
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--accent-orange);
+        }
+
+        .meta::before {
+            content: '●';
+            color: var(--accent-green);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ===========================================
+           IMPROVEMENT CARDS
+           =========================================== */
+        .improvement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .improvement-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .improvement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-blue), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .improvement-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .improvement-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+        }
+
+        .card-content {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .card-impact {
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            font-weight: 600;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===========================================
+           CALLOUT BOXES
+           =========================================== */
+        .callout {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--accent-green);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .callout.warning {
+            background: rgba(249, 115, 22, 0.1);
+            border-left-color: var(--accent-orange);
+        }
+
+        .callout.info {
+            background: rgba(59, 130, 246, 0.1);
+            border-left-color: var(--accent-blue);
+        }
+
+        .callout.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-left-color: var(--accent-green);
+        }
+
+        /* ===========================================
+           LISTS
+           =========================================== */
+        ul, ol {
+            margin: 1.5rem 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        li {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        ol {
+            counter-reset: item;
+        }
+
+        ol li::before {
+            content: counter(item) '.';
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            color: var(--accent-orange);
+            font-weight: 600;
+            font-family: var(--font-display);
+        }
+
+        /* ===========================================
+           METRICS
+           =========================================== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .metric-value {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ===========================================
+           TIMELINE
+           =========================================== */
+        .timeline {
+            margin: 2rem 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            padding-left: 3rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% + 1rem);
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s var(--ease-out-expo),
+                        transform 0.7s var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal:nth-child(1) { transition-delay: 0.1s; }
+        .reveal:nth-child(2) { transition-delay: 0.2s; }
+        .reveal:nth-child(3) { transition-delay: 0.3s; }
+        .reveal:nth-child(4) { transition-delay: 0.4s; }
+        .reveal:nth-child(5) { transition-delay: 0.5s; }
+        .reveal:nth-child(6) { transition-delay: 0.6s; }
+
+        /* ===========================================
+           ADD TO HOME SCREEN PROMPT
+           =========================================== */
+        .a2hs-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 2000;
+            animation: slideUp 0.3s var(--ease-out-expo);
+            transition: opacity 0.3s ease;
+        }
+
+        .a2hs-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .a2hs-modal {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            margin-bottom: 1rem;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .a2hs-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
+        }
+
+        .a2hs-close:hover {
+            color: var(--text-primary);
+        }
+
+        .a2hs-content {
+            text-align: center;
+        }
+
+        .a2hs-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .a2hs-modal h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .a2hs-modal p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .a2hs-instructions {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid var(--accent-green);
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .a2hs-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .a2hs-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .a2hs-btn.dismiss {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .a2hs-btn.dismiss:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+        }
+
+        .a2hs-btn.primary {
+            background: var(--accent-green);
+            color: var(--bg-primary);
+        }
+
+        .a2hs-btn.primary:hover {
+            background: #059669;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+        }
+
+        /* ===========================================
+           KEYBOARD HINT
+           =========================================== */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            z-index: 100;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .key {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+        }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-width: 768px) {
+            .nav-dots,
+            .keyboard-hint {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .improvement-grid,
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body::before,
+            body::after {
+                opacity: 0.1;
+            }
+        }
+
+        /* ===========================================
+           REDUCED MOTION
+           =========================================== */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .reveal {
+                transition: opacity 0.3s ease;
+                transform: none;
+            }
+
+            body::before,
+            body::after {
+                animation: none;
+            }
+
+            .meta::before {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress bar -->
+    <div class="progress-bar"></div>
+
+    <!-- Navigation dots -->
+    <nav class="nav-dots" aria-label="Slide navigation">
+        <!-- Generated by JS -->
+    </nav>
+
+    <!-- Keyboard hint -->
+    <div class="keyboard-hint">
+        <span>Navigate: <span class="key">←</span> <span class="key">→</span> or <span class="key">Space</span></span>
+    </div>
+
+    <!-- SLIDE 1: TITLE -->
+    <section class="slide title-slide">
+        <h1 class="reveal">How We Can Improve RedeemSG</h1>
+        <p class="reveal subtitle">Product roadmap to move from 3.1/5 → 4.0+/5</p>
+        <p class="reveal meta">Mandl Cho • January 2026</p>
+    </section>
+
+    <!-- SLIDE 2: THE OPPORTUNITY -->
+    <section class="slide">
+        <h2 class="reveal">The Opportunity</h2>
+        <div class="callout success reveal">
+            <p style="font-size: 1.3rem; font-weight: 600; color: var(--text-primary);">
+                $1.97B processed. 140M transactions. Infrastructure works flawlessly.
+            </p>
+        </div>
+        <p class="reveal">But consumer satisfaction is <strong style="color: var(--accent-orange);">3.1/5</strong> while merchants love us at <strong style="color: var(--accent-green);">4.2/5</strong>.</p>
+        <div class="callout reveal" style="margin-top: 2rem;">
+            <p style="font-weight: 600;">The gap isn't about our product working better—it's about consumer experience.</p>
+            <p style="margin-top: 1rem;">We need to make RedeemSG <strong>simpler, safer, and more accessible</strong> for the 3.1M+ consumers who use it.</p>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: ROOT CAUSES -->
+    <section class="slide">
+        <h2 class="reveal">Why Consumer Satisfaction Is Low</h2>
+        <div class="improvement-grid reveal">
+            <div class="improvement-card">
+                <div class="card-title">1. Link Hunting Friction</div>
+                <div class="card-content">Every time user accesses vouchers: (1) Remember/find go.gov.sg/cdcv (2) Select campaign (3) Singpass login (4) Wait for SMS (5) Click link. No persistent dashboard.</div>
+                <div class="card-impact">Impact: Users abandon, forget links between uses</div>
+            </div>
+            <div class="improvement-card">
+                <div class="card-title">2. Phishing Vulnerability</div>
+                <div class="card-content">Fake RedeemSG sites + SMS scams create trust anxiety. Users don't know if they're on the real site.</div>
+                <div class="card-impact">Impact: Increased churn, poor reviews</div>
+            </div>
+            <div class="improvement-card">
+                <div class="card-title">3. Discovery Problem</div>
+                <div class="card-content">No clear way to find RedeemSG. Not in LifeSG. Not bookmarked by most users. Hunt + forget = friction.</div>
+                <div class="card-impact">Impact: Low repeat usage</div>
+            </div>
+            <div class="improvement-card">
+                <div class="card-title">4. Lack of Education</div>
+                <div class="card-content">Users don't understand how to use RedeemSG safely. No in-app guidance on spotting fakes or claiming vouchers.</div>
+                <div class="card-impact">Impact: Preventable support inquiries</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: PHASE 1 - IMMEDIATE (30 DAYS) -->
+    <section class="slide">
+        <h2 class="reveal">Phase 1: Eliminate Link Hunting (30 Days)</h2>
+        <p class="reveal" style="margin-bottom: 2rem;">Current: 5-step journey (remember URL → campaign selection → Singpass → SMS → click)</p>
+        <p class="reveal" style="margin-bottom: 2rem;">Goal: 1 bookmark → direct access to active vouchers</p>
+        
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <h3>Persistent Voucher Dashboard (go.gov.sg/my-vouchers)</h3>
+                <p>Create persistent "my vouchers" URL. After Singpass login once, redirects to user's active vouchers. No campaign selection step. Bookmark-friendly.</p>
+                <ul>
+                    <li>Effort: 3 days (backend redirect + session logic)</li>
+                    <li>Impact: Eliminates 3 of 5 steps; users save &amp; reuse URL</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <h3>LifeSG Quick Access Widget</h3>
+                <p>Add RedeemSG vouchers to LifeSG home screen. Users already have LifeSG installed + logged in. One-tap from familiar dashboard.</p>
+                <ul>
+                    <li>Effort: 1 week (API integration)</li>
+                    <li>Impact: Leverages existing auth state; removes "remember URL" burden</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <h3>Extend Session Duration</h3>
+                <p>Change Singpass session timeout from 15 min to 30 days. User stays logged in. Eliminates daily re-authentication friction.</p>
+                <ul>
+                    <li>Effort: 1 day (config change)</li>
+                    <li>Impact: Reduces "wait for SMS" step on repeat visits</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <h3>Proactive SMS Reminders</h3>
+                <p>Send SMS with voucher link 1 week before expiry. Include balance. User doesn't have to hunt for deleted link.</p>
+                <ul>
+                    <li>Effort: 3 days (SMS scheduler + template)</li>
+                    <li>Impact: Prevents "where's my link?" support tickets</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: PHASE 1 IMPACT -->
+    <section class="slide">
+        <h2 class="reveal">Phase 1: Expected Impact</h2>
+        <div class="metrics-grid reveal">
+            <div class="metric">
+                <span class="metric-value">1 click</span>
+                <span class="metric-label">Access (from 5-step journey)</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">Bookmarkable</span>
+                <span class="metric-label">Persistent URL</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">+40%</span>
+                <span class="metric-label">Repeat Usage (est.)</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">-50%</span>
+                <span class="metric-label">"How do I access?" Support Tickets</span>
+            </div>
+        </div>
+        <div class="callout success reveal" style="margin-top: 3rem;">
+            <p style="font-weight: 600;">Phase 1 Summary:</p>
+            <p style="margin-top: 1rem;">Eliminate link hunting entirely. Users no longer have to remember/find URL, navigate campaigns, or wait for SMS on repeat visits. Low effort (1-3 days per item), immediate impact. Estimated completion: <strong>2 weeks</strong>.</p>
+        </div>
+    </section>
+
+    <!-- SLIDE 6: PHASE 2 - BUILD TRUST (60 DAYS) -->
+    <section class="slide">
+        <h2 class="reveal">Phase 2: Build Trust Infrastructure (Days 30-60)</h2>
+        <p class="reveal" style="margin-bottom: 2rem;">Goal: Make security visible and proactive.</p>
+        
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <h3>Official Site Badge + Verification</h3>
+                <p>Add "Government of Singapore" badge with .gov.sg domain verification. Visual trust signal users can recognize.</p>
+                <ul>
+                    <li>Effort: 1 week (design + implementation)</li>
+                    <li>Impact: Differentiates official site from fakes</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <h3>Security Center (In-App)</h3>
+                <p>Dedicated section: "How to spot fakes" + "Report a scam" + "FAQ". Merchants display in-store signage.</p>
+                <ul>
+                    <li>Effort: 2 weeks (design + content + QA)</li>
+                    <li>Impact: Empowers users, reduces fraud</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <h3>Merchant Partnership Campaign</h3>
+                <p>Physical posters: "Redeem safely at go.gov.sg/my-vouchers." Leverages merchant trust (4.2/5) to boost consumer confidence.</p>
+                <ul>
+                    <li>Effort: 1 week (design + distribution)</li>
+                    <li>Impact: Credibility boost via trusted merchants</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <h3>OGP Blog: Security & Trust</h3>
+                <p>Public content: "How to Spot a Fake RedeemSG Site" + "Your Vouchers Are Safe." Distributed via OGP channels + SPF.</p>
+                <ul>
+                    <li>Effort: 3 days (copy + SEO + promotion)</li>
+                    <li>Impact: Organic reach, authority building</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: PHASE 2 IMPACT -->
+    <section class="slide">
+        <h2 class="reveal">Phase 2: Expected Impact</h2>
+        <div class="metrics-grid reveal">
+            <div class="metric">
+                <span class="metric-value">80%</span>
+                <span class="metric-label">Trust Signal Recognition</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">10K+</span>
+                <span class="metric-label">Blog Views (target)</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">-50%</span>
+                <span class="metric-label">Phishing Reports (SPF)</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">3.5/5</span>
+                <span class="metric-label">Consumer Rating (target)</span>
+            </div>
+        </div>
+        <div class="callout info reveal" style="margin-top: 3rem;">
+            <p style="font-weight: 600;">Phase 2 Summary:</p>
+            <p style="margin-top: 1rem;">Move from "reactive" to "proactive" trust building. By day 60, users should feel we're fighting for them. Estimated completion: <strong>4 weeks</strong>.</p>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: PHASE 3 - LONG TERM (90 DAYS) -->
+    <section class="slide">
+        <h2 class="reveal">Phase 3: Reposition & Scale (Days 60-90+)</h2>
+        <p class="reveal" style="margin-bottom: 2rem;">Goal: Make RedeemSG invisible infrastructure that just works.</p>
+        
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <h3>LifeSG Integration (Deep)</h3>
+                <p>RedeemSG becomes a module within LifeSG, not a separate app. Embedded experience for voucher discovery + redemption.</p>
+                <ul>
+                    <li>Effort: 6-8 weeks (significant engineering)</li>
+                    <li>Impact: 60% increase in accessibility</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <h3>Mobile App Deprecation (Optional)</h3>
+                <p>Redirect app users to web. Focus on merchant app only. Simplify support surface.</p>
+                <ul>
+                    <li>Effort: 2 weeks (migration + comms)</li>
+                    <li>Impact: Lower support burden, clearer positioning</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <h3>Merchant App Enhancement</h3>
+                <p>Upgrade merchant experience from 4.2 → 4.5/5. Better analytics, faster payouts, clearer guidance.</p>
+                <ul>
+                    <li>Effort: 4 weeks (feature development)</li>
+                    <li>Impact: Retain best merchant satisfaction</li>
+                </ul>
+            </div>
+            <div class="timeline-item">
+                <h3>Brand Shift: Infrastructure Story</h3>
+                <p>Stop talking about "RedeemSG the app." Talk about "Singapore's trusted voucher system." Policy-first framing.</p>
+                <ul>
+                    <li>Effort: 1 week (messaging + content)</li>
+                    <li>Impact: Sets expectations correctly</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: PHASE 3 IMPACT -->
+    <section class="slide">
+        <h2 class="reveal">Phase 3: Expected Impact</h2>
+        <div class="metrics-grid reveal">
+            <div class="metric">
+                <span class="metric-value">4.0+/5</span>
+                <span class="metric-label">Consumer Rating</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">4.5/5</span>
+                <span class="metric-label">Merchant Rating</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">+40%</span>
+                <span class="metric-label">Monthly Active Users</span>
+            </div>
+            <div class="metric">
+                <span class="metric-value">100%</span>
+                <span class="metric-label">Uptime (maintained)</span>
+            </div>
+        </div>
+        <div class="callout success reveal" style="margin-top: 3rem;">
+            <p style="font-weight: 600;">Phase 3 Summary:</p>
+            <p style="margin-top: 1rem;">By day 90, RedeemSG becomes the "Stripe for government vouchers"—invisible, reliable infrastructure that policymakers depend on. Consumer expectations shift: they stop rating an "app" and start appreciating a "service." Estimated completion: <strong>12+ weeks</strong>.</p>
+        </div>
+    </section>
+
+    <!-- SLIDE 10: THE QUICK WINS -->
+    <section class="slide">
+        <h2 class="reveal">Quick Wins (This Week, No Approvals)</h2>
+        <div class="callout success reveal">
+            <p style="font-weight: 600;">Immediate 1-3 day wins to eliminate link hunting:</p>
+            <ul style="margin-top: 1.5rem;">
+                <li><strong>Create go.gov.sg/my-vouchers shortlink:</strong> 30 minutes. Just a redirect that remembers user's campaign + skips selection step.</li>
+                <li><strong>Extend Singpass session timeout:</strong> 1 day. Change from 15-minute to 30-day session. Eliminates "wait for SMS" on repeat visits within month.</li>
+                <li><strong>SMS reminder before expiry:</strong> 3 days. Send link 1 week before expiry so user doesn't lose it. Include balance in SMS.</li>
+                <li><strong>Add "Add to home screen" prompt:</strong> 2 hours. Simple banner on first visit encouraging bookmark. CSS + JS only.</li>
+                <li><strong>LifeSG integration kick-off:</strong> 2 weeks (parallel work). Start API discussions with LifeSG team.</li>
+            </ul>
+        </div>
+        <p class="reveal" style="margin-top: 2rem; font-size: 1.1rem; color: var(--accent-green);">Together, these eliminate the "remember URL → campaign selection → wait for SMS" loop. Users go from 5-step journey to 1-click bookmark.</p>
+    </section>
+
+    <!-- SLIDE 11: METRICS FRAMEWORK -->
+    <section class="slide">
+        <h2 class="reveal">How We'll Measure Success</h2>
+        <div class="reveal">
+            <h3 style="color: var(--accent-green); margin-top: 2rem; margin-bottom: 1rem;">Weekly Leading Indicators:</h3>
+            <ul style="font-size: 0.95rem;">
+                <li><strong>Session duration:</strong> Track avg time from entry → voucher claimed</li>
+                <li><strong>Repeat usage frequency:</strong> % of users returning weekly</li>
+                <li><strong>Phishing report volume:</strong> SPF data on fake site reports</li>
+                <li><strong>Support ticket trends:</strong> Are we reducing "How do I use this?" inquiries?</li>
+            </ul>
+        </div>
+        <div class="reveal" style="margin-top: 2rem;">
+            <h3 style="color: var(--accent-green); margin-bottom: 1rem;">Monthly Lagging Indicators:</h3>
+            <ul style="font-size: 0.95rem;">
+                <li><strong>App store rating:</strong> Consumer side (target: 3.1 → 3.5 → 4.0)</li>
+                <li><strong>NPS / Sentiment:</strong> Review text mining for trust signals</li>
+                <li><strong>Merchant rating:</strong> Keep at 4.2+, push to 4.5</li>
+                <li><strong>Transaction success rate:</strong> Maintain 99.9%+</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SLIDE 12: WHY THIS MATTERS -->
+    <section class="slide">
+        <h2 class="reveal">Why This Matters for OGP</h2>
+        <div class="improvement-grid reveal">
+            <div class="improvement-card">
+                <div class="card-title">Citizen Experience</div>
+                <div class="card-content">3M+ citizens use RedeemSG monthly. Improving it directly improves gov.sg's reputation.</div>
+            </div>
+            <div class="improvement-card">
+                <div class="card-title">Trust in Gov Tech</div>
+                <div class="card-content">If the official app is hard to use, citizens trust private fintech more. We need to win here.</div>
+            </div>
+            <div class="improvement-card">
+                <div class="card-title">Policy Enabler</div>
+                <div class="card-content">Every future voucher scheme will depend on RedeemSG. We're building the infrastructure for the next 10 years.</div>
+            </div>
+            <div class="improvement-card">
+                <div class="card-title">Merchant Ecosystem</div>
+                <div class="card-content">Merchants are already happy (4.2/5). If we boost consumer side, redemption velocity increases for all.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 13: THE BET -->
+    <section class="slide">
+        <h2 class="reveal">The Bet</h2>
+        <div class="callout success reveal" style="margin-top: 4rem;">
+            <p style="font-size: 1.6rem; font-weight: 600; line-height: 1.6; color: var(--text-primary);">
+                In 90 days, RedeemSG becomes the standard for government digital services.
+            </p>
+        </div>
+        <div class="reveal" style="margin-top: 3rem;">
+            <ul style="font-size: 1.1rem;">
+                <li><strong>Citizens:</strong> Can access vouchers in under 1 minute</li>
+                <li><strong>Merchants:</strong> Continue to see RedeemSG as a trusted partner (4.5/5)</li>
+                <li><strong>Policymakers:</strong> Rely on RedeemSG as the backbone for all voucher schemes</li>
+                <li><strong>Trust:</strong> Restored through visible, proactive security measures</li>
+            </ul>
+        </div>
+        <p class="reveal" style="margin-top: 3rem; font-size: 1.2rem; font-weight: 600; color: var(--accent-green);">
+            This is how we move from 3.1 → 4.0+/5. Not by building new features. By making the existing product effortless.
+        </p>
+    </section>
+
+    <script>
+        /* ===========================================
+           ADD TO HOME SCREEN PROMPT
+           Detects Safari/mobile on first visit
+           =========================================== */
+        class AddToHomeScreenPrompt {
+            constructor() {
+                this.storageKey = 'redeemssg-a2hs-dismissed';
+                this.checkAndPrompt();
+            }
+
+            isSafariMobile() {
+                const ua = navigator.userAgent;
+                const isMobile = /iPhone|iPad|iPod/.test(ua);
+                const isSafari = /Safari/.test(ua) && !/Chrome|Firefox|Opera|Edge/.test(ua);
+                return isMobile && isSafari;
+            }
+
+            isAndroidChrome() {
+                const ua = navigator.userAgent;
+                const isAndroid = /Android/.test(ua);
+                const isChrome = /Chrome/.test(ua);
+                return isAndroid && isChrome;
+            }
+
+            isFirstVisit() {
+                return !localStorage.getItem(this.storageKey);
+            }
+
+            checkAndPrompt() {
+                if (!this.isFirstVisit()) return;
+                
+                // Check if it's already installed as PWA
+                if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
+                    return;
+                }
+
+                // Only show for Safari iOS or Android Chrome
+                if (this.isSafariMobile() || this.isAndroidChrome()) {
+                    this.showPrompt();
+                }
+            }
+
+            showPrompt() {
+                const promptHTML = `
+                    <div class="a2hs-overlay" id="a2hsOverlay">
+                        <div class="a2hs-modal">
+                            <button class="a2hs-close" id="a2hsClose">×</button>
+                            <div class="a2hs-content">
+                                <div class="a2hs-icon">📱</div>
+                                <h3>Quick Access</h3>
+                                <p>Add this presentation to your home screen for instant access.</p>
+                                <div class="a2hs-instructions">
+                                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;">
+                                        Tap <strong>Share</strong> <span style="color: var(--accent-green);">↑</span> then select <strong>Add to Home Screen</strong>
+                                    </p>
+                                </div>
+                                <div class="a2hs-buttons">
+                                    <button class="a2hs-btn dismiss" id="a2hsDismiss">Not now</button>
+                                    <button class="a2hs-btn primary" id="a2hsLearn">Got it</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.body.insertAdjacentHTML('beforeend', promptHTML);
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                const closeBtn = document.getElementById('a2hsClose');
+                const dismissBtn = document.getElementById('a2hsDismiss');
+                const learnBtn = document.getElementById('a2hsLearn');
+                const overlay = document.getElementById('a2hsOverlay');
+
+                const closePrompt = () => {
+                    overlay.classList.add('hidden');
+                    localStorage.setItem(this.storageKey, 'dismissed');
+                };
+
+                closeBtn.addEventListener('click', closePrompt);
+                dismissBtn.addEventListener('click', closePrompt);
+                learnBtn.addEventListener('click', closePrompt);
+
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) closePrompt();
+                });
+            }
+        }
+
+        /* ===========================================
+           SLIDE PRESENTATION CONTROLLER
+           =========================================== */
+
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.progressBar = document.querySelector('.progress-bar');
+                this.navDots = document.querySelector('.nav-dots');
+                
+                this.init();
+            }
+
+            init() {
+                this.createNavDots();
+                this.setupIntersectionObserver();
+                this.bindEvents();
+                this.slides[0].classList.add('visible');
+                this.updateProgress();
+            }
+
+            createNavDots() {
+                this.slides.forEach((slide, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'nav-dot';
+                    if (index === 0) dot.classList.add('active');
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                    this.navDots.appendChild(dot);
+                });
+            }
+
+            setupIntersectionObserver() {
+                const options = {
+                    root: null,
+                    threshold: 0.5
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const slideIndex = Array.from(this.slides).indexOf(entry.target);
+                            this.currentSlide = slideIndex;
+                            this.updateProgress();
+                            this.updateNavDots();
+                        }
+                    });
+                }, options);
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            bindEvents() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        this.nextSlide();
+                    } else if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.prevSlide();
+                    }
+                });
+
+                let touchStartY = 0;
+                let touchEndY = 0;
+
+                document.addEventListener('touchstart', (e) => {
+                    touchStartY = e.changedTouches[0].screenY;
+                });
+
+                document.addEventListener('touchend', (e) => {
+                    touchEndY = e.changedTouches[0].screenY;
+                    this.handleSwipe();
+                });
+
+                const handleSwipe = () => {
+                    if (touchStartY - touchEndY > 50) {
+                        this.nextSlide();
+                    } else if (touchEndY - touchStartY > 50) {
+                        this.prevSlide();
+                    }
+                };
+
+                this.handleSwipe = handleSwipe;
+            }
+
+            nextSlide() {
+                if (this.currentSlide < this.slides.length - 1) {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            prevSlide() {
+                if (this.currentSlide > 0) {
+                    this.goToSlide(this.currentSlide - 1);
+                }
+            }
+
+            goToSlide(index) {
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
+
+            updateProgress() {
+                const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+                this.progressBar.style.width = `${progress}%`;
+            }
+
+            updateNavDots() {
+                const dots = this.navDots.querySelectorAll('.nav-dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentSlide);
+                });
+            }
+        }
+
+        // Initialize
+        new AddToHomeScreenPrompt();
+        new SlidePresentation();
+    </script>
+</body>
+</html>
